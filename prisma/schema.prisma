@@ -6,3 +6,68 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Usuario {
+  id_usuario String     @id @default(uuid()) @db.Uuid
+  nome       String     @db.VarChar(250)
+  username   String     @db.VarChar(250)
+  email      String     @unique @db.VarChar(250)
+  senha      String     @db.Text
+  tweet      Tweet[]
+  Like       Like[]
+  Reply      Reply[]
+  Seguidor   Seguidor[]
+
+  @@map("usuarios")
+}
+
+model Tweet {
+  id_tweet String    @id @default(uuid()) @db.Uuid
+  conteudo String    @db.Text
+  type     TweetType @default(T)
+
+  idUsuario String  @map("id_usuario") @db.Uuid
+  usuario   Usuario @relation(fields: [idUsuario], references: [id_usuario])
+  Like      Like[]
+  Reply     Reply[]
+
+  @@map("tweets")
+}
+
+enum TweetType {
+  T // tweet = T
+  R // reply = R
+}
+
+model Like {
+  id_like String @id @default(uuid()) @db.Uuid
+
+  idUsuario String  @map("id_usuario") @db.Uuid
+  usuario   Usuario @relation(fields: [idUsuario], references: [id_usuario])
+
+  idTweet String @map("id_tweet") @db.Uuid
+  tweet   Tweet  @relation(fields: [idTweet], references: [id_tweet])
+
+  @@map("likes")
+}
+
+model Reply {
+  id_reply String @id @default(uuid()) @db.Uuid
+
+  idUsuario String  @map("id_usuario") @db.Uuid
+  usuario   Usuario @relation(fields: [idUsuario], references: [id_usuario])
+
+  idTweet String @map("id_tweet") @db.Uuid
+  tweet   Tweet  @relation(fields: [idTweet], references: [id_tweet])
+
+  @@map("replys")
+}
+
+model Seguidor {
+  id_seguidor String @id @default(uuid()) @db.Uuid
+
+  idUsuario String  @map("id_usuario") @db.Uuid
+  usuario   Usuario @relation(fields: [idUsuario], references: [id_usuario])
+
+  @@map("seguidores")
+}
