@@ -28,16 +28,24 @@ model Tweet {
 
   idUsuario String  @map("id_usuario") @db.Uuid
   usuario   Usuario @relation(fields: [idUsuario], references: [id_usuario])
-  Like      Like[]
-  Reply     Reply[]
+
+  idTweetPai String? @map("id_tweet_pai") @db.Uuid
+  tweetPai   Tweet?  @relation("Reply", fields: [idTweetPai], references: [id_tweet])
+  replies    Tweet[] @relation("Reply") // Relação oposta definida aqui
+
+  Like  Like[]
+  Reply Reply[]
 
   @@map("tweets")
 }
 
 enum TweetType {
-  T // tweet = T
-  R // reply = R
+  T
+  R
 }
+
+// tweet = T
+// reply = R
 
 model Like {
   id_like String @id @default(uuid()) @db.Uuid

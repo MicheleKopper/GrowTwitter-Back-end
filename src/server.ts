@@ -1,6 +1,7 @@
 import "dotenv/config";
 import cors from "cors";
 import express from "express";
+import { PrismaClient, TweetType } from "@prisma/client";
 
 // Servidor express
 const app = express();
@@ -14,18 +15,83 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.status(200).json({
     ok: true,
-    message: "Api Prisma 💛",
+    message: "Api GrowTwitter 💛",
   });
 });
 
-// Rota Prisma client
-// app.get("/", async (req, res) => {
-//   const nome_tabela = await repository.nome_tabela.findMany();
+//DATABASE CONECTION
+export const prisma = new PrismaClient();
 
-//   res.status(200).json({ 
-//     ok: true, 
-//     message: "💛", dado: nome_tabela });
-// });
+
+// ROTAS
+app.post("/usuarios", async (req, res) => {});
+
+app.post("/tweets", async (req, res) => {
+  const { conteudo, type, idUsuario, idTweetPai } = req.body;
+
+  // VALIDAÇÃO DE DADOS
+  if (!conteudo) {
+    res.status(400).json({
+      ok: false,
+      message: "Preencha o conteúdo!",
+    });
+    return;
+  }
+
+  if (!TweetType) {
+    res.status(400).json({
+      ok: false,
+      message: "Preencha o tweet!",
+    });
+    return;
+  }
+
+  if (!idUsuario) {
+    res.status(400).json({
+      ok: false,
+      message: "Preencha o ID do usuário!",
+    });
+    return;
+  }
+
+  // VALIDAÇÃO TIPO DE DADO
+  if (typeof conteudo !== "string") {
+    res.status(400).json({
+      ok: false,
+      message: "Conteúdo inválido!",
+    });
+  }
+
+  if (type === "R" && !idTweetPai) {
+    res.status(400).json({
+      ok: false,
+      message: "Reply deve referenciar ao Tweet original!",
+    });
+  }
+
+  if (type !== "T" && type !== "R") {
+    res.status(400).json({
+      ok: false,
+      message: "Tweet precisa ser do tipo 'T' ou 'R'!",
+    });
+  }
+
+  // CRIAÇÃO NO BANCO DE DADOS
+  const tweetCriado = await prisma.tweet.create({
+    data: {
+      conteudo: conteudo,
+      type: type,
+      idUsuario: idUsuario,
+      idTweetPai: idTweetPai,
+    },
+  });
+
+  res.status(201).json({
+    ok: true,
+    message: "Tweet criado com sucesso!",
+    data: tweetCriado,
+  });
+});
 
 // Iniciar o servidor
 app.listen(porta, () => {
