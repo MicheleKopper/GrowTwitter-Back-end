@@ -20,5 +20,6 @@ export class TwitterController {
       message: "Tweet criado com sucesso!",
       data: tweetCriado,
     });
+    return;
   }
 }
