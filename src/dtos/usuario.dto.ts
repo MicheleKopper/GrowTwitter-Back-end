@@ -6,3 +6,9 @@ export interface CreateUsuarioDto {
   email: string;
   senha: string;
 }
+
+export interface QueryFilterDto {
+  nome?: string;
+  username?: string;
+  email?: string;
+}

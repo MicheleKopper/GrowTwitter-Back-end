@@ -1,5 +1,5 @@
 import { prisma } from "../database/prisma.database";
-import { CreateUsuarioDto } from "../dtos";
+import { CreateUsuarioDto, QueryFilterDto } from "../dtos";
 import { ResponseApi } from "../types";
 
 export class UsuarioService {
@@ -34,6 +34,23 @@ export class UsuarioService {
       code: 201,
       message: "Usuário cadastrado com sucesso!",
       data: usuarioCriado,
+    };
+  }
+
+  public async findAll(query: QueryFilterDto): Promise<ResponseApi> {
+    const usuarios = await prisma.usuario.findMany({
+      where: {
+        nome: { contains: query.nome, mode: "insensitive" },
+        username: { contains: query.username, mode: "insensitive" },
+        email: { contains: query.email, mode: "insensitive" },
+      },
+    });
+
+    return {
+      ok: true,
+      code: 200,
+      message: "Usuários listados com sucesso!",
+      data: usuarios,
     };
   }
 }

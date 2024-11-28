@@ -1,25 +1,25 @@
 import { Request, Response } from "express";
-import { prisma } from "../database/prisma.database";
+import { CreateTwitterDto } from "../dtos/twitter.dto";
+import { TwitterService } from "../services/twitter.service";
 
 export class TwitterController {
   public static async create(req: Request, res: Response): Promise<void> {
     const { conteudo, type, idUsuario, idTweetPai } = req.body;
 
-    // CRIAÇÃO NO BANCO DE DADOS
-    const tweetCriado = await prisma.tweet.create({
-      data: {
-        conteudo: conteudo,
-        type: type,
-        idUsuario: idUsuario,
-        idTweetPai: idTweetPai,
-      },
-    });
+    // Chamar o serviço responsável
 
-    res.status(201).json({
-      ok: true,
-      message: "Tweet criado com sucesso!",
-      data: tweetCriado,
-    });
-    return;
+    const data: CreateTwitterDto = {
+      conteudo,
+      type,
+      idUsuario,
+      idTweetPai,
+    };
+
+    const service = new TwitterService();
+    const result = await service.create(data);
+
+    // Retornar para o cliente as infos que o serviço retornar
+    const { code, ...response } = result;
+    res.status(code).json(response);
   }
 }
