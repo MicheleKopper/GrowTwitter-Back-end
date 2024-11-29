@@ -1,6 +1,7 @@
 import { prisma } from "../database/prisma.database";
 import { CreateUsuarioDto, QueryFilterDto, UpdateUsuarioDto } from "../dtos";
 import { ResponseApi } from "../types";
+import { Bcrypt } from "../utils/bcrypt";
 
 export class UsuarioService {
   public async create(createUsuario: CreateUsuarioDto): Promise<ResponseApi> {
@@ -19,13 +20,17 @@ export class UsuarioService {
       };
     }
 
+    // CRIAÇÃO DO HASH
+    const bcrypt = new Bcrypt();
+    const senhaHash = await bcrypt.generateHash(senha);
+
     // CRIAÇÃO NO BANCO DE DADOS
     const usuarioCriado = await prisma.usuario.create({
       data: {
         nome: nome,
         username: username,
         email: email,
-        senha: senha,
+        senha: senhaHash,
       },
     });
 

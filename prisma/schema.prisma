@@ -13,6 +13,7 @@ model Usuario {
   username   String     @db.VarChar(250)
   email      String     @unique @db.VarChar(250)
   senha      String     @db.Text
+  authToken  String?    @map(" auth_token") @db.Text
   tweet      Tweet[]
   Like       Like[]
   Reply      Reply[]

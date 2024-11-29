@@ -3,6 +3,7 @@ import cors from "cors";
 import express from "express";
 import { UsuarioRoutes } from "./routes/usuario.routes";
 import { TwitterRoutes } from "./routes/twitter.routes";
+import { AuthRoutes } from "./routes/auth.routes";
 
 // Servidor express
 const app = express();
@@ -19,6 +20,9 @@ app.get("/", (req, res) => {
     message: "Api GrowTwitter 💛",
   });
 });
+
+// ROTA AUTH ROUTES
+app.use(AuthRoutes.execute())
 
 // ROTA USUÁRIO
 app.use(UsuarioRoutes.execute());

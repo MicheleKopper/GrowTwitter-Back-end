@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { CreateTwitterMiddleware } from "../middlewares/create-twitter.middlewares";
+import { CreateTwitterMiddleware } from "../middlewares/twitter/create-twitter.middlewares";
 import { TwitterController } from "../controllers/twitter.controller";
+import { AuthMiddleware } from "../middlewares/auth/auth-middlewares";
 
 export class TwitterRoutes {
   public static execute(): Router {
@@ -9,6 +10,7 @@ export class TwitterRoutes {
     router.post(
       "/tweets",
       [
+        AuthMiddleware.validate,
         CreateTwitterMiddleware.validateRequired,
         CreateTwitterMiddleware.validateTypes,
       ],
