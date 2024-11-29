@@ -5,10 +5,18 @@ export interface CreateUsuarioDto {
   username: string;
   email: string;
   senha: string;
+  Twitter: {
+    idUsuario: string;
+  }[];
 }
 
 export interface QueryFilterDto {
   nome?: string;
   username?: string;
   email?: string;
+}
+
+export interface UpdateUsuarioDto {
+  nome?: string;
+  username?: string;
 }
