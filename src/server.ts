@@ -4,6 +4,7 @@ import express from "express";
 import { UsuarioRoutes } from "./routes/usuario.routes";
 import { TwitterRoutes } from "./routes/twitter.routes";
 import { AuthRoutes } from "./routes/auth.routes";
+import { LikeRoutes } from "./routes/like.routes";
 
 // Servidor express
 const app = express();
@@ -29,6 +30,9 @@ app.use(UsuarioRoutes.execute());
 
 // ROTA TWEETS
 app.use(TwitterRoutes.execute());
+
+// ROTA LIKES
+app.use(LikeRoutes.execute())
 
 // Iniciar o servidor
 app.listen(porta, () => {

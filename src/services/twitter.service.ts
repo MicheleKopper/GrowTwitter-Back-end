@@ -135,7 +135,7 @@ export class TwitterService {
     return {
       ok: true,
       code: 200,
-      message: "Usuário deletado com sucesso!",
+      message: "Tweet deletado com sucesso!",
       data: tweetDelete,
     };
   }
