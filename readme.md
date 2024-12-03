@@ -7,14 +7,17 @@ Este projeto é uma API que simula um Twitter. A aplicação permite que usuári
 ## Login
 
 - Login da aplicação: POST /login
+
   ![0](/src/assets/0.jpg)
 
 ## Usuários
 
 - Criar um novo: POST /usuarios
+
   ![01](/src/assets/01.jpg/)
 
 - Listar todos: GET /usuarios
+
   ![02](/src/assets/02.jpg)
 
 - Buscar por ID: GET /usuarios/:id_usuario
