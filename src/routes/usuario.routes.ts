@@ -1,5 +1,3 @@
-// routes: Define as rotas da API, mapeando URLs específicas para funções nos controladores.
-
 import { Router } from "express";
 import { CreateUsuarioMiddleware } from "../middlewares/usuario/create-usuario.middlewares";
 import { UsuarioController } from "../controllers/usuario.controller";
@@ -12,7 +10,7 @@ export class UsuarioRoutes {
   public static execute(): Router {
     const router = Router();
 
-    // POST - CRIAR
+    // POST - CRIAR UM NOVO USUÁRIO
     router.post(
       "/usuarios",
       [
@@ -23,32 +21,42 @@ export class UsuarioRoutes {
       UsuarioController.create
     );
 
-    // GET - FILTRAR TODOS
+    // GET - FILTRAR TODOS OS USUÁRIOS (só para admin ou usuário com permissão)
     router.get(
       "/usuarios",
       [AuthMiddleware.validate, FindAllMidlleware.validateTypes],
       UsuarioController.findAll
     );
 
-    // GET - FILTRAR UM
-    router.get("/usuarios/:id_usuario", UsuarioController.findOneById);
+    // GET - FILTRAR UM USUÁRIO ESPECÍFICO
+    router.get(
+      "/usuarios/:id_usuario",
+      [AuthMiddleware.validate], // Protege a rota para garantir que o usuário esteja autenticado
+      UsuarioController.findOneById
+    );
 
-    // PUT - ATUALIZAR
+    // PUT - ATUALIZAR UM USUÁRIO
     router.put(
       "/usuarios/:id_usuario",
       [
+        AuthMiddleware.validate, // Verifica se o usuário está autenticado
+        ValidateUuidMiddleware.validate, // Valida o formato do UUID
         UpdateUsuarioMiddleware.validateTypes,
         UpdateUsuarioMiddleware.validateData,
       ],
       UsuarioController.update
     );
 
-    // DELETE - REMOVER
+    // DELETE - REMOVER UM USUÁRIO
     router.delete(
       "/usuarios/:id_usuario",
-      ValidateUuidMiddleware.validate,
+      [
+        AuthMiddleware.validate, // Verifica se o usuário está autenticado
+        ValidateUuidMiddleware.validate, // Valida o formato do UUID
+      ],
       UsuarioController.delete
     );
+
     return router;
   }
 }
