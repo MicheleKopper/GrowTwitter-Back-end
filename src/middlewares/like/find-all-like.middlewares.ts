@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 
-export class FindAllMidlleware {
+export class FindAllLikeMidlleware {
   static validateTypes(req: Request, res: Response, next: NextFunction) {
     const { idUsuario, idTweet } = req.query;
 

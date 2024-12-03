@@ -1,5 +1,5 @@
 import { prisma } from "../database/prisma.database";
-import { CreateLikeDto } from "../dtos/like.dto";
+import { CreateLikeDto, QueryFilterLikeDto } from "../dtos/like.dto";
 import { ResponseApi } from "../types";
 
 export class LikeService {
@@ -45,6 +45,24 @@ export class LikeService {
       code: 201,
       message: "Like adicionado com sucesso!",
       data: likeCriado,
+    };
+  }
+
+  public async findAll(query: QueryFilterLikeDto): Promise<ResponseApi> {
+
+    const likes = await prisma.like.findMany({
+      where: query,
+      include: {
+        usuario: true,
+        tweet: true,
+      },
+    });
+
+    return {
+      ok: true,
+      code: 200,
+      message: "Likes encontrados com sucesso!",
+      data: likes,
     };
   }
 }

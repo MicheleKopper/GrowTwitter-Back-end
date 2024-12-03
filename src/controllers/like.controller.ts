@@ -36,4 +36,28 @@ export class LikeController {
       });
     }
   }
+
+  public static async findAll(req: Request, res: Response): Promise<void> {
+    try {
+      // 1 - pegar do query
+      const { idUsuario, idTweet } = req.query;
+
+      // 2 - Chamar o serviço
+      const service = new LikeService();
+
+      const result = await service.findAll({
+        idUsuario: idUsuario as string | undefined,
+        idTweet: idTweet as string | undefined,
+      });
+
+      // 3 - Retornar para o cliente as infos que o serviço retornar
+      const { code, ...response } = result;
+      res.status(code).json(response);
+    } catch (error: any) {
+      res.status(500).json({
+        ok: false,
+        message: `Erro do servidor: ${error.message}`,
+      });
+    }
+  }
 }
