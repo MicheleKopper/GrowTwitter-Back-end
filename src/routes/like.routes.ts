@@ -12,10 +12,21 @@ export class LikeRoutes {
     router.post("/likes", LikeController.create);
 
     // GET - FILTRAR TODOS OS LIKES DE UM TWEET ESPECÍFICO
-    router.get("/likes", [FindAllLikeMidlleware.validateTypes], LikeController.findAll);
+    router.get(
+      "/likes",
+      [FindAllLikeMidlleware.validateTypes],
+      LikeController.findAll
+    );
+
+    // GET - FILTRAR LIKES DE UM USUÁRIO ESPECÍFICO
+    router.get("/likes/:id_usuario", LikeController.findOneById);
+
+    // PUT - ATUALIZAR UM LIKE
+    router.put("/likes/id_like", LikeController.update);
+
+    // DELETE - REMOVER
+    router.delete("/likes/:id_like", LikeController.delete);
 
     return router;
   }
-
-   
 }

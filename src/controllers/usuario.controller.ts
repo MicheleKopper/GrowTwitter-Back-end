@@ -1,6 +1,6 @@
 // controllers: É responsável por receber e processar as requisições HTTP e delegam a lógica de negócios a serviços.
 
-import { Request, response, Response } from "express";
+import { Request, Response } from "express";
 import { UsuarioService } from "../services/usuario.service";
 import { CreateUsuarioDto } from "../dtos";
 

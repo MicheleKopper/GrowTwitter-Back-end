@@ -49,7 +49,6 @@ export class LikeService {
   }
 
   public async findAll(query: QueryFilterLikeDto): Promise<ResponseApi> {
-
     const likes = await prisma.like.findMany({
       where: query,
       include: {
@@ -63,6 +62,91 @@ export class LikeService {
       code: 200,
       message: "Likes encontrados com sucesso!",
       data: likes,
+    };
+  }
+
+  public async findOneById(idUsuario: string): Promise<ResponseApi> {
+    // 1 - Buscar
+    const likes = await prisma.like.findMany({
+      where: { idUsuario },
+      include: { usuario: true, tweet: true },
+    });
+
+    // 2 - Validar se existir
+    if (likes.length === 0) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Nenhum like encontrado para este usuário!",
+      };
+    }
+    // 3 - Retornar o dado
+    return {
+      ok: true,
+      code: 200,
+      message: "Likes encontrados!",
+      data: likes,
+    };
+  }
+
+  public async update(
+    id_like: string,
+    newIdUsuario?: string,
+    newIdTweet?: string
+  ): Promise<ResponseApi> {
+    // 1 - Verificar se o like existe
+    const like = await prisma.like.findUnique({
+      where: { id_like },
+    });
+
+    if (!like) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Like não encontrado!",
+      };
+    }
+
+    // 2 - Atualizar (prisma)
+    const likeUpdate = await prisma.like.update({
+      where: { id_like },
+      data: { idUsuario: newIdUsuario, idTweet: newIdTweet },
+    });
+
+    // 3 - Retornar os dados
+    return {
+      ok: true,
+      code: 200,
+      message: "Like atualizado com sucesso!",
+      data: likeUpdate,
+    };
+  }
+
+  public async delete(id_like: string): Promise<ResponseApi> {
+    // 1 - Verificar se o like existe
+    const like = await prisma.like.findUnique({
+      where: { id_like },
+    });
+
+    if (!like) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Like não encontrado!",
+      };
+    }
+
+    // 2 - Deletar o like
+    const likeDelete = await prisma.like.delete({
+      where: { id_like },
+    });
+
+    // 3 - Retornar os dados
+    return {
+      ok: true,
+      code: 200,
+      message: "Like deletado com sucesso!",
+      data: likeDelete,
     };
   }
 }

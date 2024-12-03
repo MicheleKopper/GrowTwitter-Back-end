@@ -60,4 +60,65 @@ export class LikeController {
       });
     }
   }
+
+  public static async findOneById(req: Request, res: Response): Promise<void> {
+    try {
+      // 1 - Pegar o id do params
+      const { id_usuario } = req.params;
+
+      // 2 - Chamar o serviço
+      const service = new LikeService();
+      const result = await service.findOneById(id_usuario);
+
+      // 3 - Retornar para o cliente as infos que o serviço retornar
+      const { code, ...response } = result;
+      res.status(code).json(response);
+    } catch (error: any) {
+      res.status(500).json({
+        ok: false,
+        message: `Erro do servidor: ${error.message}`,
+      });
+    }
+  }
+
+  public static async update(req: Request, res: Response): Promise<void> {
+    try {
+      // 1 - Pegar os dados (params: id e body: parâmetros)
+      const { id_like } = req.params;
+      const { idUsuario, idTweet } = req.body;
+
+      // 2 - Chamar o serviço
+      const service = new LikeService();
+      const result = await service.update(id_like, idUsuario, idTweet);
+
+      // 3 - Retornar para o cliente as infos que o serviço retornar
+      const { code, ...response } = result;
+      res.status(code).json(response);
+    } catch (error: any) {
+      res.status(500).json({
+        ok: false,
+        message: `Erro do servidor: ${error.message}`,
+      });
+    }
+  }
+
+  public static async delete(req: Request, res: Response): Promise<void> {
+    try {
+      // 1 - Pegar os dados (params: id e body: parâmetros)
+      const { id_like } = req.params;
+
+      // 2 - Chamar o serviço para deletar
+      const service = new LikeService();
+      const result = await service.delete(id_like);
+
+      // Retornar para o cliente
+      const { code, ...response } = result;
+      res.status(code).json(response);
+    } catch (error: any) {
+      res.status(500).json({
+        ok: false,
+        message: `Erro do servidor: ${error.message}`,
+      });
+    }
+  }
 }
