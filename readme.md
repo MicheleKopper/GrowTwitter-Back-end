@@ -2,6 +2,10 @@
 
 Este projeto é uma API que simula um Twitter. A aplicação permite que usuários façam login, criem, leiam, atualizem, e curtam excluam tweets. O sistema utiliza Node.js com o framework Express e a biblioteca Prisma para interação com o banco de dados.
 
+## Entidade de relação
+
+![drawio](/src/assets/Final%20de%20modulo%20-%20Banco%20de%20dados%20II.drawio.png)
+
 ## Login
 
 - Login da aplicação: POST /login
