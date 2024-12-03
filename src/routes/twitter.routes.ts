@@ -25,25 +25,19 @@ export class TwitterRoutes {
     router.get(
       "/tweets",
       [
-        ValidateUuidMiddleware.validate, // Valida o formato do UUID, se necessário
         FindAllTwitterMidlleware.validateTypes, // Valida os tipos dos parâmetros de consulta
       ],
       TwitterController.findAll
     );
 
     // GET - FILTRAR UM TWEET ESPECÍFICO POR ID
-    router.get(
-      "/tweets/:id_tweet", // Ajuste o parâmetro para id_tweet, se necessário
-      [ValidateUuidMiddleware.validate],
-      TwitterController.findOneById
-    );
+    router.get("/tweets/:id_tweet", TwitterController.findOneById);
 
     // PUT - ATUALIZAR/EDITAR UM TWEET EXISTENTE
     router.put(
       "/tweets/:id_tweet", // Ajuste o parâmetro para id_tweet, se necessário
       [
         AuthMiddleware.validate, // Verifica a autenticação antes da edição
-        ValidateUuidMiddleware.validate, // Valida o UUID do tweet
         UpdateTwitterMiddleware.validateTypes, // Valida os tipos dos dados para atualização
       ],
       TwitterController.update
@@ -54,7 +48,6 @@ export class TwitterRoutes {
       "/tweets/:id_tweet", // Ajuste o parâmetro para id_tweet, se necessário
       [
         AuthMiddleware.validate, // Verifica a autenticação antes da exclusão
-        ValidateUuidMiddleware.validate, // Valida o UUID do tweet
       ],
       TwitterController.delete
     );

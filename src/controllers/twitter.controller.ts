@@ -50,11 +50,11 @@ export class TwitterController {
   public static async findOneById(req: Request, res: Response): Promise<void> {
     try {
       // 1 - Pegar o id do params
-      const { id_usuario } = req.params;
+      const { id_tweet } = req.params;
 
       // 2 - Chamar o serviço
       const service = new TwitterService();
-      const result = await service.findOneById(id_usuario);
+      const result = await service.findOneById(id_tweet);
 
       // 3 - Retornar para o cliente as infos que o serviço retornar
       const { code, ...response } = result;
@@ -70,12 +70,12 @@ export class TwitterController {
   public static async update(req: Request, res: Response): Promise<void> {
     try {
       // 1 - Pegar os dados (params: id e body: parâmetros)
-      const { id_usuario } = req.params;
+      const { id_tweet } = req.params;
       const { conteudo, type, idTweetPai } = req.body;
 
       // 2 - Chamar o serviço
       const service = new TwitterService();
-      const result = await service.update(id_usuario, {
+      const result = await service.update(id_tweet, {
         conteudo,
         type,
         idTweetPai,
@@ -95,11 +95,11 @@ export class TwitterController {
   public static async delete(req: Request, res: Response): Promise<void> {
     try {
       // 1 - Pegar os dados (params: id e body: parâmetros)
-      const { id_usuario } = req.params;
+      const { id_tweet } = req.params;
 
       // 2 - Chamar o serviço para deletar
       const service = new TwitterService();
-      const result = await service.delete(id_usuario);
+      const result = await service.delete(id_tweet);
 
       // Retornar para o cliente
       const { code, ...response } = result;

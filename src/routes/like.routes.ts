@@ -15,7 +15,6 @@ export class LikeRoutes {
       "/likes",
       [
         AuthMiddleware.validate, // Verifica se o usuário está autenticado
-        ValidateUuidMiddleware.validate, // Valida o UUID do tweet para o qual o like será feito
         CreateLikeMiddleware.validateTypes, // Valida os tipos dos dados para o like
       ],
       LikeController.create
@@ -25,7 +24,6 @@ export class LikeRoutes {
     router.get(
       "/likes",
       [
-        ValidateUuidMiddleware.validate, // Valida o UUID do tweet para o qual os likes serão filtrados
         FindAllLikeMidlleware.validateTypes, // Valida os tipos dos parâmetros de consulta
       ],
       LikeController.findAll
@@ -40,10 +38,9 @@ export class LikeRoutes {
 
     // PUT - ATUALIZAR UM LIKE
     router.put(
-      "/likes/:id_like", 
+      "/likes/:id_like",
       [
         AuthMiddleware.validate, // Verifica se o usuário está autenticado
-        ValidateUuidMiddleware.validate, // Valida o UUID do like
         UpdateLikeMiddleware.validateTypes, // Valida os tipos dos dados para o like
         UpdateLikeMiddleware.validateData, // Valida os dados do like
       ],
@@ -52,10 +49,9 @@ export class LikeRoutes {
 
     // DELETE - REMOVER UM LIKE
     router.delete(
-      "/likes/:id_like", 
+      "/likes/:id_like",
       [
         AuthMiddleware.validate, // Verifica se o usuário está autenticado
-        ValidateUuidMiddleware.validate, // Valida o UUID do like
       ],
       LikeController.delete
     );

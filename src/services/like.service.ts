@@ -114,7 +114,7 @@ export class LikeService {
     const likeUpdate = await prisma.like.update({
       where: { id_like },
       data: {
-        ...updateData,
+        idTweet: updateData.idTweet,
       },
     });
 
