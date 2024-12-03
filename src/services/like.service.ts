@@ -1,5 +1,9 @@
 import { prisma } from "../database/prisma.database";
-import { CreateLikeDto, QueryFilterLikeDto } from "../dtos/like.dto";
+import {
+  CreateLikeDto,
+  QueryFilterLikeDto,
+  UpdateLikeDto,
+} from "../dtos/like.dto";
 import { ResponseApi } from "../types";
 
 export class LikeService {
@@ -91,8 +95,7 @@ export class LikeService {
 
   public async update(
     id_like: string,
-    newIdUsuario?: string,
-    newIdTweet?: string
+    updateData: UpdateLikeDto
   ): Promise<ResponseApi> {
     // 1 - Verificar se o like existe
     const like = await prisma.like.findUnique({
@@ -110,7 +113,9 @@ export class LikeService {
     // 2 - Atualizar (prisma)
     const likeUpdate = await prisma.like.update({
       where: { id_like },
-      data: { idUsuario: newIdUsuario, idTweet: newIdTweet },
+      data: {
+        ...updateData,
+      },
     });
 
     // 3 - Retornar os dados

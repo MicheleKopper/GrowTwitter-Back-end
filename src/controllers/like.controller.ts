@@ -1,4 +1,4 @@
-import { CreateLikeDto } from "../dtos/like.dto";
+import { CreateLikeDto, UpdateLikeDto } from "../dtos/like.dto";
 import { LikeService } from "../services/like.service";
 import { Request, Response } from "express";
 
@@ -85,11 +85,11 @@ export class LikeController {
     try {
       // 1 - Pegar os dados (params: id e body: parâmetros)
       const { id_like } = req.params;
-      const { idUsuario, idTweet } = req.body;
+      const updateData: UpdateLikeDto = req.body;
 
       // 2 - Chamar o serviço
       const service = new LikeService();
-      const result = await service.update(id_like, idUsuario, idTweet);
+      const result = await service.update(id_like, updateData);
 
       // 3 - Retornar para o cliente as infos que o serviço retornar
       const { code, ...response } = result;
