@@ -12,74 +12,62 @@ model Usuario {
   nome       String     @db.VarChar(250)
   username   String     @db.VarChar(250)
   email      String     @unique @db.VarChar(250)
-  senha      String     @db.Text
-  authToken  String?    @map("auth_token") @db.Text
-  tweet      Tweet[]
+  senha      String
+  auth_token String?    @map(" auth_token")
   Like       Like[]
   Reply      Reply[]
   Seguidor   Seguidor[]
+  tweet      Tweet[]
 
   @@map("usuarios")
 }
 
 model Tweet {
-  id_tweet String    @id @default(uuid()) @db.Uuid
-  conteudo String    @db.Text
-  type     TweetType @default(T)
-
-  idUsuario String  @map("id_usuario") @db.Uuid
-  usuario   Usuario @relation(fields: [idUsuario], references: [id_usuario])
-
-  idTweetPai String? @map("id_tweet_pai") @db.Uuid
-  tweetPai   Tweet?  @relation("Reply", fields: [idTweetPai], references: [id_tweet])
-  replies    Tweet[] @relation("Reply") // Relação oposta definida aqui
-
-  Like  Like[]
-  Reply Reply[]
+  id_tweet   String    @id @default(uuid()) @db.Uuid
+  conteudo   String
+  type       TweetType @default(T)
+  idUsuario  String    @map("id_usuario") @db.Uuid
+  idTweetPai String?   @map("id_tweet_pai") @db.Uuid
+  Like       Like[]
+  Reply      Reply[]
+  tweetPai   Tweet?    @relation("Reply", fields: [idTweetPai], references: [id_tweet])
+  replies    Tweet[]   @relation("Reply")
+  usuario    Usuario   @relation(fields: [idUsuario], references: [id_usuario])
 
   @@map("tweets")
 }
 
-enum TweetType {
-  T
-  R
-}
-
-// tweet = T
-// reply = R
-
 model Like {
-  id_like String @id @default(uuid()) @db.Uuid
-
+  id_like   String  @id @default(uuid()) @db.Uuid
   idUsuario String  @map("id_usuario") @db.Uuid
+  idTweet   String  @map("id_tweet") @db.Uuid
+  tweet     Tweet   @relation(fields: [idTweet], references: [id_tweet])
   usuario   Usuario @relation(fields: [idUsuario], references: [id_usuario])
-
-  idTweet String @map("id_tweet") @db.Uuid
-  tweet   Tweet  @relation(fields: [idTweet], references: [id_tweet])
 
   @@map("likes")
 }
 
 model Reply {
-  id_reply String @id @default(uuid()) @db.Uuid
-
-  conteudo String @db.Text
-  type     TweetType @default(R)
-
-  idUsuario String  @map("id_usuario") @db.Uuid
-  usuario   Usuario @relation(fields: [idUsuario], references: [id_usuario])
-
-  idTweet String @map("id_tweet") @db.Uuid
-  tweet   Tweet  @relation(fields: [idTweet], references: [id_tweet])
+  id_reply  String    @id @default(uuid()) @db.Uuid
+  idUsuario String    @map("id_usuario") @db.Uuid
+  idTweet   String    @map("id_tweet") @db.Uuid
+  conteudo  String
+  type      TweetType @default(R)
+  tweet     Tweet     @relation(fields: [idTweet], references: [id_tweet])
+  usuario   Usuario   @relation(fields: [idUsuario], references: [id_usuario])
 
   @@map("replys")
 }
 
 model Seguidor {
-  id_seguidor String @id @default(uuid()) @db.Uuid
-
-  idUsuario String  @map("id_usuario") @db.Uuid
-  usuario   Usuario @relation(fields: [idUsuario], references: [id_usuario])
+  id_seguidor String  @id @default(uuid()) @db.Uuid
+  idUsuario   String  @map("id_usuario") @db.Uuid
+  usuario     Usuario @relation(fields: [idUsuario], references: [id_usuario])
 
   @@map("seguidores")
+}
+
+enum TweetType {
+  T
+  R
 }

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { CreateReplyMiddleware } from "../middlewares/reply/create-reply-middlewares";
 import { ReplyController } from "../controllers/reply.controller";
-
+import { FindAllReplyMidlleware } from "../middlewares/reply/find-all-reply-midllewares";
 
 export class ReplyRoutes {
   public static execute(): Router {
@@ -16,6 +16,16 @@ export class ReplyRoutes {
         CreateReplyMiddleware.validateData,
       ],
       ReplyController.create
+    );
+
+    // GET - LISTA TODAS AS RESPOSTAS
+    router.get(
+      "/replies",
+      [
+        FindAllReplyMidlleware.validateRequired,
+        FindAllReplyMidlleware.validateTypes,
+      ],
+      ReplyController.findAll
     );
     return router;
   }

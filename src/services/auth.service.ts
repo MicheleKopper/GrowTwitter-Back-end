@@ -43,7 +43,7 @@ export class AuthService {
       await prisma.usuario.update({
         where: { id_usuario: usuario.id_usuario },
         data: {
-          authToken: token,
+          auth_token: token,
         },
       });
 
@@ -65,7 +65,7 @@ export class AuthService {
 
   public async validateToken(token: string): Promise<Usuario | null> {
     const usuario = await prisma.usuario.findFirst({
-      where: { authToken: token },
+      where: { auth_token: token },
     });
 
     return usuario;

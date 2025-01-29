@@ -34,6 +34,16 @@ export class TwitterService {
         conteudo: { contains: query.conteudo, mode: "insensitive" },
         type: query.type || undefined,
       },
+      // Todos os tweets incluindo as respostas (replies) de cada tweet
+      include: {
+        usuario: true, // Inclui o usuário que postou o tweet
+        replies: {
+          // Inclui as replies do tweet
+          include: {
+            usuario: true, // Inclui o usuário que fez a reply
+          },
+        },
+      },
     });
 
     return {
