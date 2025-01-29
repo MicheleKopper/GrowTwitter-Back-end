@@ -8,7 +8,6 @@ export class TwitterController {
     const { conteudo, type, idUsuario, idTweetPai } = req.body;
 
     // Chamar o serviço responsável
-
     const data: CreateTwitterDto = {
       conteudo,
       type,

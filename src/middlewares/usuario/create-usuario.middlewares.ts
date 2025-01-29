@@ -97,7 +97,7 @@ export class CreateUsuarioMiddleware {
         message: "A senha deve ter mínimo de 4 carascteres!",
       });
     }
-    
+
     next();
   }
 }
