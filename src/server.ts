@@ -5,6 +5,7 @@ import { UsuarioRoutes } from "./routes/usuario.routes";
 import { TwitterRoutes } from "./routes/twitter.routes";
 import { AuthRoutes } from "./routes/auth.routes";
 import { LikeRoutes } from "./routes/like.routes";
+import { ReplyRoutes } from "./routes/reply.routes";
 
 // Servidor express
 const app = express();
@@ -23,7 +24,7 @@ app.get("/", (req, res) => {
 });
 
 // ROTA AUTH ROUTES
-app.use(AuthRoutes.execute())
+app.use(AuthRoutes.execute());
 
 // ROTA USUÁRIO
 app.use(UsuarioRoutes.execute());
@@ -31,8 +32,11 @@ app.use(UsuarioRoutes.execute());
 // ROTA TWEETS
 app.use(TwitterRoutes.execute());
 
+// ROTA REPLY
+app.use(ReplyRoutes.execute());
+
 // ROTA LIKES
-app.use(LikeRoutes.execute())
+app.use(LikeRoutes.execute());
 
 // Iniciar o servidor
 app.listen(porta, () => {

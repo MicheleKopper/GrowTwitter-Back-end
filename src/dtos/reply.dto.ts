@@ -8,7 +8,5 @@ export interface CreateReplyDto {
 }
 
 export interface QueryFilterReplyDto {
-  type?: TweetType;
-  idUsuario?: string;
   idTweet?: string;
 }

@@ -20,11 +20,8 @@ export class ReplyRoutes {
 
     // GET - LISTA TODAS AS RESPOSTAS
     router.get(
-      "/replies",
-      [
-        FindAllReplyMidlleware.validateRequired,
-        FindAllReplyMidlleware.validateTypes,
-      ],
+      "/replies/:idTweet",
+      [FindAllReplyMidlleware.validateRequired],
       ReplyController.findAll
     );
     return router;

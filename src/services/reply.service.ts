@@ -24,11 +24,10 @@ export class ReplyService {
     };
   }
 
-  public async findAll(query: QueryFilterReplyDto): Promise<ResponseApi>{
+  public async findAll(query: QueryFilterReplyDto): Promise<ResponseApi> {
     const replies = await prisma.reply.findMany({
+      // Como quero solicitar
       where: {
-        type: query.type || undefined,
-        idUsuario: query.idUsuario || undefined,
         idTweet: query.idTweet || undefined,
       },
     });
