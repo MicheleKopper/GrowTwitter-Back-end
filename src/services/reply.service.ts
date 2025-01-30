@@ -83,7 +83,7 @@ export class ReplyService {
       return {
         ok: false,
         code: 404,
-        message: "Tweet não encontrado!",
+        message: "Reply não encontrado!",
       };
     }
 
@@ -101,6 +101,34 @@ export class ReplyService {
       code: 200,
       message: "Tweet atualizado com sucesso!",
       data: replyUpdate,
+    };
+  }
+
+  public async delete(id_reply: string): Promise<ResponseApi> {
+    // 1 - Verificar se o reply existe
+    const reply = await prisma.reply.findUnique({
+      where: { id_reply },
+    });
+
+    if (!reply) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Reply não encontrado!",
+      };
+    }
+
+    // 2 - Deletar o reply
+    const replyDelete = await prisma.reply.delete({
+      where: { id_reply },
+    });
+
+    // 3 - Retornar os dados
+    return {
+      ok: true,
+      code: 200,
+      message: "Reply deletado com sucesso!",
+      data: replyDelete,
     };
   }
 }

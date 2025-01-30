@@ -82,4 +82,24 @@ export class ReplyController {
       });
     }
   }
+
+  public static async delete(req: Request, res: Response): Promise<void> {
+    try {
+      // 1 - Pegar os dados (params: id e body: parâmetros)
+      const { id_reply } = req.params;
+
+      // 2 - Chamar o serviço para deletar
+      const service = new ReplyService();
+      const result = await service.delete(id_reply);
+
+      // Retornar para o cliente
+      const { code, ...response } = result;
+      res.status(code).json(response);
+    } catch (error: any) {
+      res.status(500).json({
+        ok: false,
+        message: `Erro do servidor: ${error.message}`,
+      });
+    }
+  }
 }

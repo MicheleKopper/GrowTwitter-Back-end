@@ -37,7 +37,7 @@ export class ReplyRoutes {
     );
 
     // DELETE - REMOVER UMA RESPOSTA
-
+    router.delete("/replies/:id_reply", ReplyController.delete);
     return router;
   }
 }
