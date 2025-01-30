@@ -63,7 +63,7 @@ export class UsuarioService {
     // 1 - Buscar
     const usuario = await prisma.usuario.findUnique({
       where: { id_usuario },
-      include: { tweet: true },
+      include: { Tweet: true },
     });
 
     // 2 - Validar se existir
