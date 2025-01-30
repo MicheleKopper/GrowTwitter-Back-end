@@ -6,6 +6,7 @@ import { TwitterRoutes } from "./routes/twitter.routes";
 import { AuthRoutes } from "./routes/auth.routes";
 import { LikeRoutes } from "./routes/like.routes";
 import { ReplyRoutes } from "./routes/reply.routes";
+import { FollowRoutes } from "./routes/follow.routes";
 
 // Servidor express
 const app = express();
@@ -29,14 +30,17 @@ app.use(AuthRoutes.execute());
 // ROTA USUÁRIO
 app.use(UsuarioRoutes.execute());
 
-// ROTA TWEETS
+// ROTA TWITTER
 app.use(TwitterRoutes.execute());
 
 // ROTA REPLY
 app.use(ReplyRoutes.execute());
 
-// ROTA LIKES
+// ROTA LIKE
 app.use(LikeRoutes.execute());
+
+// ROTA FOLLOW
+app.use(FollowRoutes.execute());
 
 // Iniciar o servidor
 app.listen(porta, () => {

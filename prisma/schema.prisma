@@ -8,16 +8,19 @@ datasource db {
 }
 
 model Usuario {
-  id_usuario String     @id @default(uuid()) @db.Uuid
-  nome       String     @db.VarChar(250)
-  username   String     @db.VarChar(250)
-  email      String     @unique @db.VarChar(250)
+  id_usuario String  @id @default(uuid()) @db.Uuid
+  nome       String  @db.VarChar(250)
+  username   String  @db.VarChar(250)
+  email      String  @unique @db.VarChar(250)
   senha      String
-  auth_token String?    @map(" auth_token")
-  Like       Like[]
-  Reply      Reply[]
-  Seguidor   Seguidor[]
-  tweet      Tweet[]
+  auth_token String? @map("auth_token")
+
+  Like  Like[]
+  Reply Reply[]
+  Tweet Tweet[]
+
+  followers Follow[] @relation("Followers") // Quem segue este usuário
+  following Follow[] @relation("Following") // Quem este usuário está seguindo
 
   @@map("usuarios")
 }
@@ -59,12 +62,16 @@ model Reply {
   @@map("replys")
 }
 
-model Seguidor {
-  id_seguidor String  @id @default(uuid()) @db.Uuid
-  idUsuario   String  @map("id_usuario") @db.Uuid
-  usuario     Usuario @relation(fields: [idUsuario], references: [id_usuario])
+model Follow {
+  id_follow   String @id @default(uuid()) @db.Uuid
+  followerId  String @map("follower_id") @db.Uuid
+  followingId String @map("following_id") @db.Uuid
 
-  @@map("seguidores")
+  follower  Usuario @relation("Followers", fields: [followerId], references: [id_usuario])
+  following Usuario @relation("Following", fields: [followingId], references: [id_usuario])
+
+  @@unique([followerId, followingId]) // Evita seguir a mesma pessoa mais de uma vez
+  @@map("follows") 
 }
 
 enum TweetType {
