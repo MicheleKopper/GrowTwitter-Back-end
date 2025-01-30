@@ -1,5 +1,5 @@
 import { prisma } from "../database/prisma.database";
-import { CreateFollowDto } from "../dtos/follow.dto";
+import { CreateFollowDto, QueryFilterDto } from "../dtos/follow.dto";
 import { ResponseApi } from "../types";
 
 // follower = seguidor
@@ -41,5 +41,31 @@ export class FollowService {
         message: `Erro ao seguir usuário: ${error.message}`,
       };
     }
+  }
+
+  public async findAllFollowers(query: QueryFilterDto): Promise<ResponseApi> {
+    const { id_usuario } = query;
+
+    const followers = await prisma.follow.findMany({
+      where: {
+        followingId: id_usuario,
+      },
+      include: {
+        follower: {
+          select: {
+            id_usuario: true,
+            username: true,
+            nome: true,
+          },
+        },
+      },
+    });
+
+    return {
+      ok: true,
+      code: 200,
+      message: "Seguidores listados com sucesso!",
+      data: followers,
+    };
   }
 }

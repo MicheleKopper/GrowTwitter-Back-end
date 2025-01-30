@@ -12,6 +12,17 @@ export class FollowRoutes {
       [CreateFollowMiddleware.validateRequired],
       FollowController.create
     );
+
+    // GET - LISTA SEGUIDORES DE UM USUÁRIO (meus seguidores)
+    router.get(
+      "/follow",
+      [CreateFollowMiddleware.validateRequired],
+      FollowController.findAllFollowers
+    );
+
+    // follower = seguidor
+    // following = seguindo
+
     return router;
   }
 }
