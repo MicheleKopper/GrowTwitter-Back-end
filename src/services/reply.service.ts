@@ -4,24 +4,26 @@ import { ResponseApi } from "../types";
 
 export class ReplyService {
   public async create(createReply: CreateReplyDto): Promise<ResponseApi> {
-    const { conteudo, type, idUsuario, idTweet } = createReply;
+    try {
+      const { conteudo, type, idUsuario, idTweet } = createReply;
 
-    // Criação no banco de dados
-    const replyCriado = await prisma.reply.create({
-      data: {
-        conteudo: conteudo,
-        type: type,
-        idUsuario: idUsuario,
-        idTweet: idTweet,
-      },
-    });
+      const replyCriado = await prisma.reply.create({
+        data: { conteudo, type, idUsuario, idTweet },
+      });
 
-    return {
-      ok: true,
-      code: 201,
-      message: "Resposta criada com sucesso!",
-      data: replyCriado,
-    };
+      return {
+        ok: true,
+        code: 201,
+        message: "Resposta criada com sucesso!",
+        data: replyCriado,
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        code: 500,
+        message: "Erro ao criar resposta.",
+      };
+    }
   }
 
   public async findAll(query: QueryFilterReplyDto): Promise<ResponseApi> {
