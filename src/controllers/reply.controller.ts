@@ -27,16 +27,52 @@ export class ReplyController {
   public static async findAll(req: Request, res: Response): Promise<void> {
     try {
       // 1 - Captura dos parâmetros da query
-      console.log(req);
-      const { type, idUsuario, idTweet } = req.query;
+      const { id_reply } = req.query;
 
       // 2 - Chamar o serviço
       const service = new ReplyService();
       const result = await service.findAll({
-        idTweet: idTweet as string | undefined,
+        id_reply: id_reply as string | undefined,
       });
 
       // 3 - Retornar para o cliente as infos que o serviço retornar
+      const { code, ...response } = result;
+      res.status(code).json(response);
+    } catch (error: any) {
+      res.status(500).json({
+        ok: false,
+        message: `Erro do servidor: ${error.message}`,
+      });
+    }
+  }
+
+  public static async findOneById(req: Request, res: Response): Promise<void> {
+    try {
+      const { id_reply } = req.params;
+
+      // 2 - Chamar o service
+      const service = new ReplyService();
+      const result = await service.findOneById(id_reply);
+
+      // 3 - Retorna resposta para o cliente
+      const { code, ...response } = result;
+      res.status(code).json(response);
+    } catch (error: any) {
+      res.status(500).json({
+        ok: false,
+        message: `Erro do servidor: ${error.message}`,
+      });
+    }
+  }
+
+  public static async update(req: Request, res: Response): Promise<void> {
+    try {
+      const { id_reply } = req.params;
+      const { conteudo } = req.body;
+
+      const service = new ReplyService();
+      const result = await service.update(id_reply, { conteudo });
+
       const { code, ...response } = result;
       res.status(code).json(response);
     } catch (error: any) {

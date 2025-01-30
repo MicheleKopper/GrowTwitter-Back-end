@@ -1,5 +1,9 @@
 import { prisma } from "../database/prisma.database";
-import { CreateReplyDto, QueryFilterReplyDto } from "../dtos/reply.dto";
+import {
+  CreateReplyDto,
+  QueryFilterReplyDto,
+  UpdateReplyDto,
+} from "../dtos/reply.dto";
 import { ResponseApi } from "../types";
 
 export class ReplyService {
@@ -30,7 +34,7 @@ export class ReplyService {
     const replies = await prisma.reply.findMany({
       // Como quero solicitar
       where: {
-        idTweet: query.idTweet || undefined,
+        id_reply: query.id_reply || undefined,
       },
     });
 
@@ -39,6 +43,64 @@ export class ReplyService {
       code: 200,
       message: "Replies listados com sucesso!",
       data: replies,
+    };
+  }
+
+  public async findOneById(id_reply: string): Promise<ResponseApi> {
+    // Como quero solicitar
+    const reply = await prisma.reply.findUnique({
+      where: { id_reply },
+    });
+
+    // Verificar se o reply existe
+    if (!reply) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Reply não encontrado!",
+      };
+    }
+
+    // Retorna o reply encontrado
+    return {
+      ok: true,
+      code: 200,
+      message: "Reply encontrado!",
+      data: reply,
+    };
+  }
+
+  public async update(
+    id_reply: string,
+    updateReply: UpdateReplyDto
+  ): Promise<ResponseApi> {
+    // 1 - Verificar se o reply existe
+    const reply = await prisma.reply.findUnique({
+      where: { id_reply },
+    });
+
+    if (!reply) {
+      return {
+        ok: false,
+        code: 404,
+        message: "Tweet não encontrado!",
+      };
+    }
+
+    // 2 -  Atualizar o reply no banco de dados
+    const replyUpdate = await prisma.reply.update({
+      where: { id_reply },
+      data: {
+        conteudo: updateReply.conteudo,
+      },
+    });
+
+    // 3 - Retornar os dados atualizados
+    return {
+      ok: true,
+      code: 200,
+      message: "Tweet atualizado com sucesso!",
+      data: replyUpdate,
     };
   }
 }

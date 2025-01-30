@@ -5,7 +5,7 @@ export interface CreateUsuarioDto {
   username: string;
   email: string;
   senha: string;
-  Twitter: {
+  Twitter?: {
     idUsuario: string;
   }[];
 }
