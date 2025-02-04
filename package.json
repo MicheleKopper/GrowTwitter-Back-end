@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
     "start": "node ./dist/server.js",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --verbose --runInBand --detectOpenHandles",
+    "test:coverage": "jest --runInBand --coverage",
+    "test:watch": "jest --silent --noStackTrace --runInBand --watchAll",
+    "test:unit": "jest -c jest.unit.config.ts --verbose  --noStackTrace"
   },
   "keywords": [],
   "author": "",
@@ -15,10 +19,12 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.10.0",
     "dotenv": "^16.4.5",
     "prisma": "^5.22.0",
+    "ts-jest": "^29.2.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.2"
   },
@@ -28,6 +34,7 @@
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^4.21.1",
+    "jest": "^29.7.0",
     "jsonwebtoken": "^9.0.2"
   }
 }
