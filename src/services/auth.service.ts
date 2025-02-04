@@ -3,7 +3,8 @@ import { prisma } from "../database/prisma.database";
 import { LoginDto } from "../dtos/auth.dto";
 import { ResponseApi } from "../types";
 import { Bcrypt } from "../utils/bcrypt";
-import { randomUUID } from "crypto";
+import { JWT } from "../utils/jwt";
+import { AuthUser } from "../types/user.type";
 
 export class AuthService {
   public async login(data: LoginDto): Promise<ResponseApi> {
@@ -37,22 +38,24 @@ export class AuthService {
       }
 
       // 3 - Gerar o token (ui)
-      const token = randomUUID();
 
-      // 4 - Atualizar a coluna authToken
-      await prisma.usuario.update({
-        where: { id_usuario: usuario.id_usuario },
-        data: {
-          auth_token: token,
-        },
-      });
+      const jwt = new JWT();
+      const payload: AuthUser = {
+        id: usuario.id_usuario,
+        name: usuario.nome,
+        email: usuario.email,
+      };
 
-      // 5 - Retornar o token
+      const token = jwt.generateToken(payload);
+
+
+
+      // 4 - Retornar o token
       return {
         ok: true,
         code: 200,
         message: "Login realizado com sucesso!",
-        data: { token },
+        data: { usuario: payload, token },
       };
     } catch (error: any) {
       return {
@@ -63,11 +66,5 @@ export class AuthService {
     }
   }
 
-  public async validateToken(token: string): Promise<Usuario | null> {
-    const usuario = await prisma.usuario.findFirst({
-      where: { auth_token: token },
-    });
-
-    return usuario;
-  }
+  
 }

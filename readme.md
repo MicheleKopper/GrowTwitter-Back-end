@@ -10,6 +10,16 @@ Este projeto é uma API que simula um Twitter. A aplicação permite que usuári
 
   ![0](/src/assets/0.jpg)
 
+## Token JWT
+
+- Login
+
+  ![24](/src/assets/24.jpg)
+
+- Authorization: Bearer Token
+
+  ![25](/src/assets/25.jpg)
+
 ## Usuários
 
 - Criar um novo: POST /usuarios
