@@ -7,10 +7,6 @@ export interface CreateReplyDto {
   idTweet: string;
 }
 
-export interface QueryFilterReplyDto {
-  id_reply?: string;
-}
-
 export interface UpdateReplyDto {
   conteudo?: string;
 }

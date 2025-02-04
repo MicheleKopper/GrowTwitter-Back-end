@@ -1,9 +1,5 @@
 import { prisma } from "../database/prisma.database";
-import {
-  CreateReplyDto,
-  QueryFilterReplyDto,
-  UpdateReplyDto,
-} from "../dtos/reply.dto";
+import { CreateReplyDto, UpdateReplyDto } from "../dtos/reply.dto";
 import { ResponseApi } from "../types";
 
 export class ReplyService {
@@ -30,44 +26,58 @@ export class ReplyService {
     }
   }
 
-  public async findAll(query: QueryFilterReplyDto): Promise<ResponseApi> {
-    const replies = await prisma.reply.findMany({
-      // Como quero solicitar
-      where: {
-        id_reply: query.id_reply || undefined,
-      },
-    });
+  public async findAll(id_reply?: string): Promise<ResponseApi> {
+    try {
+      const whereCondition = id_reply ? { id_reply } : {}; // Se não houver id, busca todos
 
-    return {
-      ok: true,
-      code: 200,
-      message: "Replies listados com sucesso!",
-      data: replies,
-    };
+      const replies = await prisma.reply.findMany({
+        where: whereCondition,
+      });
+
+      return {
+        ok: true,
+        code: 200,
+        message: "Replies listados com sucesso!",
+        data: replies,
+      };
+    } catch (error: any) {
+      return {
+        ok: false,
+        code: 500,
+        message: `Erro ao buscar replies: ${error.message}`,
+      };
+    }
   }
 
   public async findOneById(id_reply: string): Promise<ResponseApi> {
-    // Como quero solicitar
-    const reply = await prisma.reply.findUnique({
-      where: { id_reply },
-    });
+    try {
+      // Busca o reply pelo ID
+      const reply = await prisma.reply.findUnique({
+        where: { id_reply },
+      });
 
-    // Verificar se o reply existe
-    if (!reply) {
+      // Se não encontrar, retorna erro
+      if (!reply) {
+        return {
+          ok: false,
+          code: 404,
+          message: "Reply não encontrado.",
+        };
+      }
+
+      return {
+        ok: true,
+        code: 200,
+        message: "Reply encontrado com sucesso!",
+        data: reply,
+      };
+    } catch (error: any) {
       return {
         ok: false,
-        code: 404,
-        message: "Reply não encontrado!",
+        code: 500,
+        message: `Erro ao buscar reply: ${error.message}`,
       };
     }
-
-    // Retorna o reply encontrado
-    return {
-      ok: true,
-      code: 200,
-      message: "Reply encontrado!",
-      data: reply,
-    };
   }
 
   public async update(

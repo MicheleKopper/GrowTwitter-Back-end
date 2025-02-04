@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { CreateFollowMiddleware } from "../middlewares/follow/create-follow-middlewares";
 import { FollowController } from "../controllers/follow.controller";
-import { ValidateUuidMiddleware } from "../middlewares/validate-uuid.middlewares";
 import { AuthMiddleware } from "../middlewares/auth/auth-middlewares";
 
 // follower = seguidor
@@ -15,12 +14,16 @@ export class FollowRoutes {
     // POST - SEGUIR UM USUÁRIO
     router.post(
       "/follow",
-      [CreateFollowMiddleware.validateRequired],
+      [AuthMiddleware.validate, CreateFollowMiddleware.validateRequired],
       FollowController.create
     );
 
     // GET - LISTA SEGUIDORES DE UM USUÁRIO (meus seguidores)
-    router.get("/follow/:id_usuario", FollowController.findAllFollowers);
+    router.get(
+      "/follow/:id_usuario",
+      [AuthMiddleware.validate],
+      FollowController.findAllFollowers
+    );
 
     // DELETE - DEIXAR DE SEGUIR UM USUÁRIO
     router.delete(

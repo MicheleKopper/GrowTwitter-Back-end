@@ -72,6 +72,39 @@ Este projeto é uma API que simula um Twitter. A aplicação permite que usuári
 
   ![14](/src/assets/14.jpg)
 
-- Deletar um like: /likes/:id_like
+- Deletar um like: DELETE /likes/:id_like
 
   ![15](/src/assets/15.jpg)
+
+## Reply
+
+- Criar uma resposta: POST /replies
+
+  ![16](/src/assets/16.jpg)
+
+- Listar todas as respostas: GET /replies
+
+  ![17](/src/assets/17.jpg)
+
+- Buscar pelo ID: GET /replies/:id_reply
+
+  ![18](/src/assets/18.jpg)
+
+- Atualizar pelo ID: PUT /replies/:id_reply
+
+  ![19](/src/assets/19.jpg)
+
+- Deletar uma resposta: DELETE /replies/:id_reply
+
+  ![20](/src/assets/20.jpg)
+
+## Follow
+
+- Seguir um usuário: POST /follow
+  ![21](/src/assets/21.jpg)
+
+- Lista de seguidores: GET /follow/:id_usuario
+  ![22](/src/assets/22.jpg)
+
+- Deixar de seguir: DELETE /follow/:id_follow
+  ![23](/src/assets/23.jpg)

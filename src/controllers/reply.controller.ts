@@ -31,11 +31,9 @@ export class ReplyController {
 
       // 2 - Chamar o serviço
       const service = new ReplyService();
-      const result = await service.findAll({
-        id_reply: id_reply as string | undefined,
-      });
+      const result = await service.findAll(id_reply as string | undefined);
 
-      // 3 - Retornar para o cliente as infos que o serviço retornar
+      // 3 - Retorna resposta para o cliente
       const { code, ...response } = result;
       res.status(code).json(response);
     } catch (error: any) {
@@ -48,13 +46,23 @@ export class ReplyController {
 
   public static async findOneById(req: Request, res: Response): Promise<void> {
     try {
+      // Captura o ID dos parâmetros da URL
       const { id_reply } = req.params;
 
-      // 2 - Chamar o service
+      // Valida se o ID foi fornecido
+      if (!id_reply) {
+        res.status(400).json({
+          ok: false,
+          message: "O id_reply é obrigatório!",
+        });
+        return;
+      }
+
+      // Chama o serviço para buscar o reply
       const service = new ReplyService();
       const result = await service.findOneById(id_reply);
 
-      // 3 - Retorna resposta para o cliente
+      // Retorna o resultado para o cliente
       const { code, ...response } = result;
       res.status(code).json(response);
     } catch (error: any) {
