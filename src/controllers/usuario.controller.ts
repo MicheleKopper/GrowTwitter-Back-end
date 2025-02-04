@@ -7,6 +7,7 @@ import { CreateUsuarioDto } from "../dtos";
 export class UsuarioController {
   public static async create(req: Request, res: Response): Promise<void> {
     try {
+     // Pegar os dados do body: parâmetros
       const { nome, username, email, senha } = req.body;
 
       // Montar o objeto DTO
@@ -58,12 +59,15 @@ export class UsuarioController {
 
   public static async findOneById(req: Request, res: Response): Promise<void> {
     try {
-      // 1 - Pegar o id do params
+      // Pegar os dados do params: id
       const { id_usuario } = req.params;
+      const {usuario} = req.body
+      console.log(usuario);
+      
 
       // 2 - Chamar o serviço
       const service = new UsuarioService();
-      const result = await service.findOneById(id_usuario);
+      const result = await service.findOneById(id_usuario, usuario.id_usuario);
 
       // 3 - Retornar para o cliente as infos que o serviço retornar
       const { code, ...response } = result;
@@ -78,8 +82,9 @@ export class UsuarioController {
 
   public static async update(req: Request, res: Response): Promise<void> {
     try {
-      // 1 - Pegar os dados (params: id e body: parâmetros)
+      // Pegar os dados do params: id
       const { id_usuario } = req.params;
+      // Pegar os dados do body: parâmetros
       const { nome, username } = req.body;
 
       // 2 - Chamar o serviço
@@ -99,7 +104,7 @@ export class UsuarioController {
 
   public static async delete(req: Request, res: Response): Promise<void> {
     try {
-      // 1 - Pegar os dados (params: id e body: parâmetros)
+      // 1 - Pegar os dados do params: id
       const { id_usuario } = req.params;
 
       // 2 - Chamar o serviço para deletar

@@ -93,7 +93,7 @@ export class TwitterController {
 
   public static async delete(req: Request, res: Response): Promise<void> {
     try {
-      // 1 - Pegar os dados (params: id e body: parâmetros)
+      // 1 - Pegar os dados do params: id 
       const { id_tweet } = req.params;
 
       // 2 - Chamar o serviço para deletar

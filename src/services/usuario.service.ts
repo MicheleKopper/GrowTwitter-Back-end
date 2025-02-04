@@ -59,14 +59,17 @@ export class UsuarioService {
     };
   }
 
-  public async findOneById(id_usuario: string): Promise<ResponseApi> {
-    // 1 - Buscar
+  public async findOneById(
+    id_usuario: string,
+    usuarioLoggedId: string
+  ): Promise<ResponseApi> {
+    // Buscar usuário e incluir relações
     const usuario = await prisma.usuario.findUnique({
       where: { id_usuario },
-      include: { Tweet: true },
+      include: { Tweet: true, following: true },
     });
 
-    // 2 - Validar se existir
+    // Validar se existir
     if (!usuario) {
       return {
         ok: false,
@@ -74,12 +77,18 @@ export class UsuarioService {
         message: "Usuário não encontrado!",
       };
     }
-    // 3 - Retornar o dado
+
+    // Verificar se o usuário logado segue o usuário pesquisado
+    const follow = usuario.following.find((f) => {
+      f.followerId === usuarioLoggedId && f.followingId === id_usuario;
+    });
+
+    // Retornar o dado
     return {
       ok: true,
       code: 200,
       message: "Usuário encontrado!",
-      data: usuario,
+      data: { ...usuario, isFollowing: follow },
     };
   }
 
