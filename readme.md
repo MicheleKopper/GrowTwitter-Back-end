@@ -101,10 +101,13 @@ Este projeto é uma API que simula um Twitter. A aplicação permite que usuári
 ## Follow
 
 - Seguir um usuário: POST /follow
+
   ![21](/src/assets/21.jpg)
 
 - Lista de seguidores: GET /follow/:id_usuario
+
   ![22](/src/assets/22.jpg)
 
 - Deixar de seguir: DELETE /follow/:id_follow
+
   ![23](/src/assets/23.jpg)
