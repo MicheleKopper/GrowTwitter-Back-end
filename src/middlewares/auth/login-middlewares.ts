@@ -13,6 +13,7 @@ export class LoginMiddleware {
         ok: false,
         message: "Email obrigatório!",
       });
+      return;
     }
 
     if (!senha) {
@@ -20,6 +21,7 @@ export class LoginMiddleware {
         ok: false,
         message: "Senha obrigatória!",
       });
+      return;
     }
     next();
   }
@@ -32,13 +34,15 @@ export class LoginMiddleware {
         ok: false,
         message: "Email deve ser uma string!",
       });
+      return;
     }
 
     if (typeof senha !== "string") {
       res.status(400).json({
         ok: false,
-        message: "Senha obrigatória!",
+        message: "Senha deve ser uma string!",
       });
+      return;
     }
     next();
   }

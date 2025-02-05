@@ -7,7 +7,6 @@ export class AuthController {
       const { email, senha } = req.body;
 
       // Chamar o serviço responsável
-      
       const service = new AuthService();
       const result = await service.login({email, senha})
 

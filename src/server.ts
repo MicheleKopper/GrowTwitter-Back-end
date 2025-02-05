@@ -1,46 +1,10 @@
 import "dotenv/config";
-import cors from "cors";
-import express from "express";
-import { UsuarioRoutes } from "./routes/usuario.routes";
-import { TwitterRoutes } from "./routes/twitter.routes";
-import { AuthRoutes } from "./routes/auth.routes";
-import { LikeRoutes } from "./routes/like.routes";
-import { ReplyRoutes } from "./routes/reply.routes";
-import { FollowRoutes } from "./routes/follow.routes";
+import { createServer } from "./express.server";
 
-// Servidor express
-const app = express();
 const porta = process.env.PORTA;
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
-
-// ROTA PADRÃO
-app.get("/", (req, res) => {
-  res.status(200).json({
-    ok: true,
-    message: "Api GrowTwitter 💛",
-  });
-});
-
-// ROTA AUTH ROUTES
-app.use(AuthRoutes.execute());
-
-// ROTA USUÁRIO
-app.use(UsuarioRoutes.execute());
-
-// ROTA TWITTER
-app.use(TwitterRoutes.execute());
-
-// ROTA REPLY
-app.use(ReplyRoutes.execute());
-
-// ROTA LIKE
-app.use(LikeRoutes.execute());
-
-// ROTA FOLLOW
-app.use(FollowRoutes.execute());
+// Importar do `express.server` que criamos
+const app = createServer();
 
 // Iniciar o servidor
 app.listen(porta, () => {
