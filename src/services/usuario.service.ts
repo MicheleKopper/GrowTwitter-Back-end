@@ -42,12 +42,12 @@ export class UsuarioService {
     };
   }
 
-  public async findAll(query: QueryFilterDto): Promise<ResponseApi> {
+  public async findAll(query?: QueryFilterDto): Promise<ResponseApi> {
     const usuarios = await prisma.usuario.findMany({
       where: {
-        nome: { contains: query.nome, mode: "insensitive" },
-        username: { contains: query.username, mode: "insensitive" },
-        email: { contains: query.email, mode: "insensitive" },
+        nome: { contains: query?.nome, mode: "insensitive" },
+        username: { contains: query?.username, mode: "insensitive" },
+        email: { contains: query?.email, mode: "insensitive" },
       },
     });
 

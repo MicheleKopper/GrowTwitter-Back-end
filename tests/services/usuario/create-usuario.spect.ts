@@ -16,22 +16,7 @@ describe("Create user service", () => {
   // Criar uma instância do serviço antes de cada teste
   const createSut = () => new UsuarioService();
 
-  // TESTE 01 - EMAIL
-  it("Deve retornar erro se o emial já estiver sendo utilizado", async () => {
-    const sut = createSut(); // Cria uma instância do serviço
-    const dto = makeCreateUsuario({ email: "mi@gmail.com" }); // Simula um usuário com email já cadastrado
-    const usuarioMock = UsuarioMock.build({ email: "mi@gmail.com" }); // Cria um mock de usuário com esse email
-
-    prismaMock.usuario.findUnique.mockResolvedValue(usuarioMock); // Simula que o banco já tem um usuário com esse email
-
-    const result = await sut.create(dto); // Chama o serviço para criar o usuário
-
-    expect(result.ok).toBe(false);
-    expect(result.code).toBe(409);
-    expect(result).toHaveProperty("message", "Este email já está em uso!");
-  });
-
-  // TESTE 02 - NOME
+  // NOME EM USO
   it("Deve retornar erro se o nome já estiver sendo utilizado", async () => {
     const sut = createSut();
     const dto = makeCreateUsuario({ nome: "novo_nome" });
@@ -51,11 +36,87 @@ describe("Create user service", () => {
     expect(prismaMock.usuario.findUnique).toHaveBeenCalledTimes(1);
   });
 
-  // TESTE 03 - USUÁRIO
+  // NOME INVÁLIDO
+  it("Deve retornar erro ao cadastrar um nome inválido", async () => {
+    const sut = createSut();
+    const dto = makeCreateUsuario({ nome: "" });
+
+    const response = await sut.create(dto);
+
+    expect(response).toEqual({
+      ok: false,
+      code: 400,
+      message: "Nome não pode estar vazio",
+    });
+  });
+
+  // USERNAME EM USO
+  it("Deve retornar erro se o username já estiver sendo utilizado", async () => {
+    const sut = createSut();
+    const dto = makeCreateUsuario({ username: "novo_username" });
+    const usuarioMock = UsuarioMock.build({ username: dto.username });
+
+    prismaMock.usuario.findUnique.mockResolvedValue(usuarioMock);
+
+    const response = await sut.create(dto);
+
+    expect(response).toEqual({
+      ok: false,
+      code: 409,
+      message: "Username já está em uso",
+    });
+  });
+
+  // USERNAME INVÁLIDO
+  it("Deve retornar erro ao cadastrar um username inválido", async () => {
+    const sut = createSut();
+    const dto = makeCreateUsuario({ username: "username com espaço" });
+
+    const response = await sut.create(dto);
+
+    expect(response).toEqual({
+      ok: false,
+      code: 400,
+      message: "Username não pode conter espaços ou caracteres especiais",
+    });
+  });
+
+  // EMAIL EM USO
+  it("Deve retornar erro se o email já estiver sendo utilizado", async () => {
+    const sut = createSut(); // Cria uma instância do serviço
+    const dto = makeCreateUsuario({ email: "mi@gmail.com" }); // Simula um usuário com email já cadastrado
+    const usuarioMock = UsuarioMock.build({ email: "mi@gmail.com" }); // Cria um mock de usuário com esse email
+
+    prismaMock.usuario.findUnique.mockResolvedValue(usuarioMock); // Simula que o banco já tem um usuário com esse email
+
+    const result = await sut.create(dto); // Chama o serviço para criar o usuário
+
+    expect(result.ok).toBe(false);
+    expect(result.code).toBe(409);
+    expect(result).toHaveProperty("message", "Este email já está em uso!");
+  });
+
+  // EMAIL INVÁLIDO
+  it("Deve retornar erro ao cadastrar um email inválido", async () => {
+    const sut = createSut();
+    const dto = makeCreateUsuario({ email: "email com espaço" });
+
+    const response = await sut.create(dto);
+
+    expect(response).toEqual({
+      ok: false,
+      code: 400,
+      message: "Email não pode conter espaços",
+    });
+  });
+  
+  // USUÁRIO
   it("Deve retornar o usuário criando com sucesso!", async () => {
     const sut = createSut();
     const dto = makeCreateUsuario();
     const usuarioMock = UsuarioMock.build();
+
+    // Simula que o usuário não existe
     prismaMock.usuario.findUnique.mockResolvedValue(null);
 
     jest.spyOn(Bcrypt.prototype, "generateHash").mockResolvedValue("any_hash");

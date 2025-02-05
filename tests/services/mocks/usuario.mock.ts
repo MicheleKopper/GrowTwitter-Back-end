@@ -10,13 +10,13 @@ interface UsuarioMockParams {
 
 // Usuário mockado com parâmetros opcionais
 export class UsuarioMock {
-  public static build(params: UsuarioMockParams = {}): Usuario {
+  public static build(params?: UsuarioMockParams): Usuario {
     return {
       id_usuario: randomUUID(),
-      nome: params.nome || "Michele",
-      username: params.username || "@michele",
-      email: params.email || "michele@gmail.com",
-      senha: params.senha || "senha123",
+      nome: params?.nome || "Michele",
+      username: params?.username || "@michele",
+      email: params?.email || "michele@gmail.com",
+      senha: params?.senha || "senha123",
     };
   }
 }
