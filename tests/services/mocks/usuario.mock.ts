@@ -8,15 +8,15 @@ interface UsuarioMockParams {
   senha?: string;
 }
 
-export class usuarioMock {
-  // Método para construir um usuário mockado
-  public static build(params: UsuarioMockParams): Usuario {
+// Usuário mockado com parâmetros opcionais
+export class UsuarioMock {
+  public static build(params: UsuarioMockParams = {}): Usuario {
     return {
       id_usuario: randomUUID(),
-      nome: "Michele",
-      username: "@michele",
-      email: "michele@gmail.com",
-      senha: "senha123",
+      nome: params.nome || "Michele",
+      username: params.username || "@michele",
+      email: params.email || "michele@gmail.com",
+      senha: params.senha || "senha123",
     };
   }
 }
