@@ -25,13 +25,18 @@ export class TwitterRoutes {
     router.get(
       "/tweets",
       [
+        AuthMiddleware.validate,
         FindAllTwitterMidlleware.validateTypes, // Valida os tipos dos parâmetros de consulta
       ],
       TwitterController.findAll
     );
 
     // GET - FILTRAR UM TWEET ESPECÍFICO POR ID
-    router.get("/tweets/:id_tweet", TwitterController.findOneById);
+    router.get(
+      "/tweets/:id_tweet",
+      [AuthMiddleware.validate],
+      TwitterController.findOneById
+    );
 
     // PUT - ATUALIZAR/EDITAR UM TWEET EXISTENTE
     router.put(

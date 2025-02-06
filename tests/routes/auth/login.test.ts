@@ -89,7 +89,7 @@ describe("POST /login", () => {
     // Act
     const response = await supertest(server).post(endpoint).send(body);
 
-    console.log(response.body);
+  
 
     // Assets
     expect(response.statusCode).toBe(200);
@@ -115,7 +115,7 @@ describe("POST /login", () => {
     // Act
     const response = await supertest(server).post(endpoint).send(body);
 
-    console.log(response.body);
+
 
     // Assets
     expect(response.statusCode).toBe(200);
