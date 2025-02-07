@@ -5,7 +5,6 @@ import { prismaMock } from "../../config/prisma.mock";
 import { UsuarioMock } from "../mocks/usuario.mock";
 
 // Busca de todos os usuários pelo nome
-
 // Busca de todos os usuários
 
 describe("Find all user", () => {
@@ -66,8 +65,8 @@ describe("Find all user", () => {
     expect(result.ok).toBeTruthy(); // === true
     expect(result.code).toBe(200);
     expect(result.message).toBe("Usuários listados com sucesso!");
-
     expect(result.data).toHaveLength(10);
+
     result.data.forEach((usuario: Usuario, index: number) => {
       expect(usuario).toEqual({
         id_usuario: expect.any(String),

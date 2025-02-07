@@ -1,19 +1,28 @@
-import { UsuarioMock } from "./usuario.mock";
+import { Tweet, TweetType } from "@prisma/client";
 
-interface TwitterMockParams {
-  id_usuario?: string;
-  conteudo?: string;
-  type?: "Tweet" | "Reply";
+interface TweetMock extends Tweet {
+  usuario?: {
+    id_usuario: string;
+    nome: string;
+    username: string;
+  };
+  replies?: TweetMock[];
 }
-export class TwitterMock {
-  public static build(query?: TwitterMockParams) {
-    
-    const usuarioMock = UsuarioMock.build(); // Cria um usuário
 
+export class TwitterMock {
+  public static build(params?: Partial<TweetMock>): TweetMock {
     return {
-      conteudo: query?.conteudo || "Tweet de teste",
-      type: query?.type || "Tweet",
-      usuario: usuarioMock,
+      id_tweet: params?.id_tweet || "Id-123",
+      conteudo: params?.conteudo || "Conteúdo",
+      type: params?.type || TweetType.T,
+      idUsuario: params?.idUsuario || "Id-123",
+      idTweetPai: params?.idTweetPai || null,
+      usuario: params?.usuario || {
+        id_usuario: "Id-123",
+        nome: "Michele",
+        username: "@michele",
+      },
+      replies: params?.replies || [],
     };
   }
 }
