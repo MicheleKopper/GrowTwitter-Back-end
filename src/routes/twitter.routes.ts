@@ -2,9 +2,9 @@ import { Router } from "express";
 import { CreateTwitterMiddleware } from "../middlewares/twitter/create-twitter.middlewares";
 import { TwitterController } from "../controllers/twitter.controller";
 import { AuthMiddleware } from "../middlewares/auth/auth-middlewares";
-import { FindAllTwitterMidlleware } from "../middlewares/twitter/find-all-twitter.middlewares";
+import { FindAllTwitterMiddleware } from "../middlewares/twitter/find-all-twitter.middlewares";
 import { UpdateTwitterMiddleware } from "../middlewares/twitter/update-twitter.middlewares";
-import { ValidateUuidMiddleware } from "../middlewares/validate-uuid.middlewares";
+
 
 export class TwitterRoutes {
   public static execute(): Router {
@@ -26,7 +26,7 @@ export class TwitterRoutes {
       "/tweets",
       [
         AuthMiddleware.validate,
-        FindAllTwitterMidlleware.validateTypes, // Valida os tipos dos parâmetros de consulta
+        FindAllTwitterMiddleware.validateTypes, // Valida os tipos dos parâmetros de consulta
       ],
       TwitterController.findAll
     );

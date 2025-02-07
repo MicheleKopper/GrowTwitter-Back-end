@@ -89,13 +89,10 @@ describe("POST /login", () => {
     // Act
     const response = await supertest(server).post(endpoint).send(body);
 
-  
-
     // Assets
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({
       ok: true,
-
       message: "Login realizado com sucesso!",
       data: { usuario: expect.any(Object), token: expect.any(String) },
     });
@@ -109,19 +106,16 @@ describe("POST /login", () => {
     // Mock do Prisma
     prismaMock.usuario.findUnique.mockResolvedValue(UsuarioMock.build());
 
-    // Mock do vcrypt.verify
+    // Mock do bcrypt.verify
     jest.spyOn(Bcrypt.prototype, "verify").mockResolvedValue(true);
 
     // Act
     const response = await supertest(server).post(endpoint).send(body);
 
-
-
     // Assets
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({
       ok: true,
-
       message: "Login realizado com sucesso!",
       data: { usuario: expect.any(Object), token: expect.any(String) },
     });

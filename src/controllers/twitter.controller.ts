@@ -35,6 +35,8 @@ export class TwitterController {
         type: type as TweetType,
       });
 
+       
+
       // 3 - Retornar para o cliente as infos que o serviço retornar
       const { code, ...response } = result;
       res.status(code).json(response);
