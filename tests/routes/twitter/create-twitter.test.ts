@@ -1,18 +1,7 @@
-// // POST - CRIAR UM NOVO TWEET OU REPLY
-// router.post(
-//   "/tweets",
-//   [
-//     AuthMiddleware.validate, // Valida se o usuário está autenticado
-//     CreateTwitterMiddleware.validateRequired, // Valida campos obrigatórios
-//     CreateTwitterMiddleware.validateTypes, // Valida tipos dos dados
-//   ],
-//   TwitterController.create
-// );
 import { createServer } from "../../../src/express.server";
 import supertest from "supertest";
 import { TwitterService } from "../../../src/services/twitter.service";
 import { makeToken } from "../make-token";
-import { data } from "react-router-dom";
 
 describe("POST /tweets", () => {
   const server = createServer();
@@ -128,5 +117,37 @@ describe("POST /tweets", () => {
     });
   });
 
-  
+  //  __________________ CONTROLLER __________________
+  // CRIAR TWEET
+  it("Deve retornar 201 ao criar um tweet com sucesso", async () => {
+    const token = makeToken();
+
+    // Mock da criação do tweet
+    const mockTweet = {
+      conteudo: "Meu primeiro tweet",
+      type: "T",
+      idUsuario: "123",
+      idTweetPai: null,
+    };
+
+    // Mock do serviço para retornar o tweet criado
+    jest.spyOn(TwitterService.prototype, "create").mockResolvedValue({
+      ok: true,
+      code: 201,
+      message: "Tweet criado com sucesso!",
+      data: mockTweet,
+    });
+
+    // Act - Faz a requisição para o Controller
+    const response = await supertest(server)
+      .post(endpoint)
+      .set("Authorization", `Bearer ${token}`)
+      .send(mockTweet); // Removido o ponto e vírgula extra
+
+    // Asserts
+    expect(response.statusCode).toBe(201);
+    expect(response.body.ok).toBe(true);
+    expect(response.body.message).toBe("Tweet criado com sucesso!");
+    expect(response.body.data).toEqual(mockTweet);
+  });
 });
