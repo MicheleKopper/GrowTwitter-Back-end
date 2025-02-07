@@ -14,9 +14,11 @@ export class TwitterRoutes {
     router.post(
       "/tweets",
       [
-        AuthMiddleware.validate, // Valida se o usuário está autenticado
-        CreateTwitterMiddleware.validateRequired, // Valida campos obrigatórios
-        CreateTwitterMiddleware.validateTypes, // Valida tipos dos dados
+        AuthMiddleware.validate,
+        CreateTwitterMiddleware.validateRequired,
+        CreateTwitterMiddleware.validateTypes,
+
+        
       ],
       TwitterController.create
     );

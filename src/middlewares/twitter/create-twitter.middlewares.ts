@@ -18,14 +18,6 @@ export class CreateTwitterMiddleware {
       return;
     }
 
-    if (!TweetType) {
-      res.status(400).json({
-        ok: false,
-        message: "Preencha o tweet!",
-      });
-      return;
-    }
-
     if (!idUsuario) {
       res.status(400).json({
         ok: false,
@@ -45,6 +37,7 @@ export class CreateTwitterMiddleware {
         ok: false,
         message: "Conteúdo inválido!",
       });
+      return;
     }
 
     if (type === "R" && !idTweetPai) {
@@ -52,6 +45,7 @@ export class CreateTwitterMiddleware {
         ok: false,
         message: "Reply deve referenciar ao Tweet original!",
       });
+      return;
     }
 
     if (type !== "T" && type !== "R") {
@@ -59,6 +53,7 @@ export class CreateTwitterMiddleware {
         ok: false,
         message: "Tweet precisa ser do tipo 'T' ou 'R'!",
       });
+      return;
     }
     next();
   }

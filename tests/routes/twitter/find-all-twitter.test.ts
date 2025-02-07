@@ -8,6 +8,7 @@ describe("GET /tweets", () => {
   const server = createServer();
   const endpoint = "/tweets";
 
+  //  __________________ AUTH __________________
   // TOKEN AUSENTE
   it("Deve retornar 401 quando não for informado o token", async () => {
     const response = await supertest(server).get(endpoint);
