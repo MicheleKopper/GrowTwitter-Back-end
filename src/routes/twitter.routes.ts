@@ -5,7 +5,6 @@ import { AuthMiddleware } from "../middlewares/auth/auth-middlewares";
 import { FindAllTwitterMiddleware } from "../middlewares/twitter/find-all-twitter.middlewares";
 import { UpdateTwitterMiddleware } from "../middlewares/twitter/update-twitter.middlewares";
 
-
 export class TwitterRoutes {
   public static execute(): Router {
     const router = Router();
@@ -17,8 +16,6 @@ export class TwitterRoutes {
         AuthMiddleware.validate,
         CreateTwitterMiddleware.validateRequired,
         CreateTwitterMiddleware.validateTypes,
-
-        
       ],
       TwitterController.create
     );

@@ -81,7 +81,7 @@ export class TwitterService {
     return {
       ok: true,
       code: 200,
-      message: "Tweet encontrado!",
+      message: "mockService",
       data: tweet,
     };
   }
