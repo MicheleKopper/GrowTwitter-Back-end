@@ -7,7 +7,7 @@ import { CreateUsuarioDto } from "../dtos";
 export class UsuarioController {
   public static async create(req: Request, res: Response): Promise<void> {
     try {
-     // Pegar os dados do body: parâmetros
+      // Pegar os dados do body: parâmetros
       const { nome, username, email, senha } = req.body;
 
       // Montar o objeto DTO
@@ -61,9 +61,8 @@ export class UsuarioController {
     try {
       // Pegar os dados do params: id
       const { id_usuario } = req.params;
-      const {usuario} = req.body
+      const { usuario } = req.body;
       console.log(usuario);
-      
 
       // 2 - Chamar o serviço
       const service = new UsuarioService();

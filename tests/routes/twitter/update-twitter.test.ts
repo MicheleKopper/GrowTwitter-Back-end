@@ -2,7 +2,7 @@ import supertest from "supertest";
 import { createServer } from "../../../src/express.server";
 import { makeToken } from "../make-token";
 import { TwitterService } from "../../../src/services/twitter.service";
-import { TwitterMock } from "../../services/mocks/twitter.mock";
+
 import "dotenv/config";
 
 describe("PUT /tweets/:id_tweet", () => {

@@ -46,14 +46,15 @@ export class CreateUsuarioMiddleware {
   }
 
   public static validateTypes(req: Request, res: Response, next: NextFunction) {
-    const { nome, username, email, senha } = req.body;
+    const { nome, username, email } = req.body;
 
     // VALIDAÇÃO TIPO DE DADO
-    if (typeof nome !== "string") {
+    if (!nome || typeof nome !== "string") {
       res.status(400).json({
         ok: false,
         message: "Nome inválido!",
       });
+      return;
     }
 
     if (typeof username !== "string") {
@@ -61,6 +62,7 @@ export class CreateUsuarioMiddleware {
         ok: false,
         message: "Username inválido!",
       });
+      return
     }
 
     if (typeof email !== "string") {
@@ -68,13 +70,7 @@ export class CreateUsuarioMiddleware {
         ok: false,
         message: "Email inválido!",
       });
-    }
-
-    if (typeof senha !== "string") {
-      res.status(400).json({
-        ok: false,
-        message: "Senha inválido!",
-      });
+      return
     }
 
     next();
@@ -89,13 +85,15 @@ export class CreateUsuarioMiddleware {
         ok: false,
         message: "Email inválido!",
       });
+      return
     }
 
     if (senha.length < 4) {
       res.status(400).json({
         ok: false,
-        message: "A senha deve ter mínimo de 4 carascteres!",
+        message: "A senha deve ter mínimo de 4 caracteres!",
       });
+      return
     }
 
     next();

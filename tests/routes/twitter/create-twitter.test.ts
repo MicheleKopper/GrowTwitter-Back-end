@@ -142,7 +142,7 @@ describe("POST /tweets", () => {
     const response = await supertest(server)
       .post(endpoint)
       .set("Authorization", `Bearer ${token}`)
-      .send(mockTweet); 
+      .send(mockTweet);
 
     // Asserts
     expect(response.statusCode).toBe(201);
