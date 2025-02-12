@@ -5,33 +5,30 @@ export class UpdateTwitterMiddleware {
     const { conteudo, type, idTweetPai } = req.body;
 
     // VALIDAÇÃO TIPO DE DADO
-    // se vier conteudo, entao valida se conteudo é uma string
-    if (conteudo && typeof conteudo !== "string") {
+    if (conteudo === undefined || conteudo === null || conteudo === "") {
       res.status(400).json({
         ok: false,
-        message: "Conteúdo inválido!",
+        message: "Conteúdo é obrigatório!",
       });
+      return;
     }
 
-    if (type === "R" && !idTweetPai && typeof idTweetPai !== "string") {
-      res.status(400).json({
-        ok: false,
-        message: "idTweetPai deve ser uma string válida!",
-      });
-    }
-
+    // 'type' deve ser 'T' ou 'R'
     if (type !== "T" && type !== "R") {
       res.status(400).json({
         ok: false,
         message: "Tweet precisa ser do tipo 'T' ou 'R'!",
       });
+      return;
     }
 
-    if (!(type === "T" || type === "R")) {
+    // 'idTweetPai' se o tipo for 'R' (resposta)
+    if (type === "R" && (!idTweetPai || typeof idTweetPai !== "string")) {
       res.status(400).json({
         ok: false,
-        message: "Tipo de tweet inválido!",
+        message: "idTweetPai deve ser uma string válida!",
       });
+      return;
     }
 
     next();
