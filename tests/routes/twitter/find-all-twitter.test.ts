@@ -48,6 +48,7 @@ describe("GET /tweets", () => {
     jest
       .spyOn(TwitterService.prototype, "findAll")
       .mockResolvedValue(mockService);
+
     const response = await supertest(server)
       .get(endpoint)
       .set("Authorization", `Bearer ${token}`);

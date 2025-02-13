@@ -42,13 +42,12 @@ export class AuthService {
       const jwt = new JWT();
       const payload: AuthUser = {
         id: usuario.id_usuario,
-        name: usuario.nome,
+        nome: usuario.nome,
         email: usuario.email,
+        username: usuario.username,
       };
 
       const token = jwt.generateToken(payload);
-
-
 
       // 4 - Retornar o token
       return {
@@ -65,6 +64,4 @@ export class AuthService {
       };
     }
   }
-
-  
 }
