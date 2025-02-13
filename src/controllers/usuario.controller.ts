@@ -62,7 +62,7 @@ export class UsuarioController {
       // Pegar os dados do params: id
       const { id_usuario } = req.params;
       const { usuario } = req.body;
-      console.log(usuario);
+ 
 
       // 2 - Chamar o serviço
       const service = new UsuarioService();

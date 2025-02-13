@@ -109,7 +109,7 @@ describe("Create user service", () => {
       message: "Email não pode conter espaços",
     });
   });
-  
+
   // USUÁRIO
   it("Deve retornar o usuário criando com sucesso!", async () => {
     const sut = createSut();
