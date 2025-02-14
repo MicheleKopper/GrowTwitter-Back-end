@@ -9,6 +9,7 @@ export class ValidateUuidMiddleware {
         ok: false,
         message: "Identificador obrigatório!",
       });
+      return;
     }
 
     // Validar o formato desse id
@@ -21,6 +22,7 @@ export class ValidateUuidMiddleware {
         ok: false,
         message: "Identificador precisa ser um Uuid!",
       });
+      return;
     }
     next();
   }

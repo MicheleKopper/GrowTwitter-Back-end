@@ -2,6 +2,7 @@ import { Usuario } from "@prisma/client";
 import { randomUUID } from "crypto";
 
 interface UsuarioMockParams {
+  id_usuario?: string;
   nome?: string;
   username?: string;
   email?: string;

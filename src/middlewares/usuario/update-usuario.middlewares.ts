@@ -10,6 +10,7 @@ export class UpdateUsuarioMiddleware {
         ok: false,
         message: "Nome inválido!",
       });
+      return;
     }
 
     if (username && typeof username !== "string") {
@@ -17,6 +18,7 @@ export class UpdateUsuarioMiddleware {
         ok: false,
         message: "Username inválido!",
       });
+      return;
     }
 
     next();
@@ -30,6 +32,7 @@ export class UpdateUsuarioMiddleware {
         ok: false,
         message: "Nome deve conter mínimo 3 caracteres!",
       });
+      return;
     }
 
     if (username && username.length < 3) {
@@ -37,7 +40,9 @@ export class UpdateUsuarioMiddleware {
         ok: false,
         message: "Username deve conter mínimo 3 caracteres!",
       });
+      return;
     }
+    
     next();
   }
 }

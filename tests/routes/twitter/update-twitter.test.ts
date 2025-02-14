@@ -144,7 +144,7 @@ describe("PUT /tweets/:id_tweet", () => {
   });
 
   //  __________________ CONTROLLER __________________
-  it.only("Deve retornar 200 e o tweeter atualizado", async ( ) => {
+  it.only("Deve retornar 200 e o tweeter atualizado", async () => {
     const token = makeToken();
 
     const twitterUpdate = {
@@ -162,16 +162,16 @@ describe("PUT /tweets/:id_tweet", () => {
       data: twitterUpdate,
     });
 
-     // Act - Faz a requisição para o Controller
-        const response = await supertest(server)
-          .put(`${endpoint}/valid-tweet-id`)
-          .set("Authorization", `Bearer ${token}`)
-          .send(twitterUpdate); 
-    
-        // Asserts
-        expect(response.statusCode).toBe(200);
-        expect(response.body.ok).toBe(true);
-        expect(response.body.message).toBe("Tweet atualizado com sucesso!");
-        expect(response.body.data).toEqual(twitterUpdate);
-  })
+    // Act - Faz a requisição para o Controller
+    const response = await supertest(server)
+      .put(`${endpoint}/valid-tweet-id`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(twitterUpdate);
+
+    // Asserts
+    expect(response.statusCode).toBe(200);
+    expect(response.body.ok).toBe(true);
+    expect(response.body.message).toBe("Tweet atualizado com sucesso!");
+    expect(response.body.data).toEqual(twitterUpdate);
+  });
 });
