@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { CreateReplyMiddleware } from "../middlewares/reply/create-reply-middlewares";
 import { ReplyController } from "../controllers/reply.controller";
-import { FindAllReplyMidlleware } from "../middlewares/reply/find-all-reply-midllewares";
 import { UpdateReplyMiddleware } from "../middlewares/reply/update-reply-middlewares";
 import { AuthMiddleware } from "../middlewares/auth/auth-middlewares";
 

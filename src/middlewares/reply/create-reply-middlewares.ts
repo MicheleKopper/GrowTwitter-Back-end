@@ -14,6 +14,7 @@ export class CreateReplyMiddleware {
         ok: false,
         message: "Preencha o conteúdo!",
       });
+      return
     }
 
     if (!type) {
@@ -21,6 +22,7 @@ export class CreateReplyMiddleware {
         ok: false,
         message: "Preencha o tipo de Tweet!",
       });
+      return
     }
 
     if (!idUsuario) {
@@ -28,6 +30,7 @@ export class CreateReplyMiddleware {
         ok: false,
         message: "Preencha o ID do usuário!",
       });
+      return
     }
 
       if (!idTweet) {
@@ -35,6 +38,7 @@ export class CreateReplyMiddleware {
           ok: false,
           message: "Preencha o ID do Tweet!",
         });
+        return
       }
     next();
   }
@@ -48,6 +52,7 @@ export class CreateReplyMiddleware {
         ok: false,
         message: "Conteúdo inválido!",
       });
+      return
     }
 
     if (type === "R" && !idTweet) {
@@ -55,6 +60,7 @@ export class CreateReplyMiddleware {
         ok: false,
         message: "Reply deve referenciar ao Tweet original!",
       });
+      return
     }
 
     if (type !== "R") {
@@ -62,6 +68,7 @@ export class CreateReplyMiddleware {
         ok: false,
         message: "Tweet precisa ser do tipo 'R' (Reply)!",
       });
+      return
     }
     next();
   }
@@ -75,6 +82,7 @@ export class CreateReplyMiddleware {
         ok: false,
         message: "O conteúdo deve ter no máximo 300 caracteres!",
       });
+      return
     }
 
     // conteudo.trim().length → Garante que não são aceitos apenas espaços em branco
@@ -83,6 +91,7 @@ export class CreateReplyMiddleware {
         ok: false,
         message: "Preencha o conteúdo!",
       });
+      return
     }
     next();
   }
