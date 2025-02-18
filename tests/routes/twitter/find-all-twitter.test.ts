@@ -68,7 +68,6 @@ describe("GET /tweets", () => {
 
     expect(response.statusCode).toBe(400);
     expect(response.body).toEqual({
-      ok: false,
       message: "O tipo deve ser 'Tweet' ou 'Reply'",
     });
   });

@@ -6,6 +6,7 @@ interface TweetMock extends Tweet {
     nome: string;
     username: string;
   };
+  id_reply: string;
   replies?: TweetMock[];
 }
 
@@ -13,6 +14,7 @@ export class TwitterMock {
   public static build(params?: Partial<TweetMock>): TweetMock {
     return {
       id_tweet: params?.id_tweet || "Id-123",
+      id_reply: params?.id_reply || "Id-123",
       conteudo: params?.conteudo || "Conteúdo",
       type: params?.type || TweetType.T,
       idUsuario: params?.idUsuario || "Id-123",

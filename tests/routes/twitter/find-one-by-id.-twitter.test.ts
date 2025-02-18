@@ -3,9 +3,7 @@ import supertest from "supertest";
 import { makeToken } from "../make-token";
 import { TwitterService } from "../../../src/services/twitter.service";
 import { TwitterMock } from "../../services/mocks/twitter.mock";
-import { AuthMiddleware } from "../../../src/middlewares/auth/auth-middlewares";
-import { Request, Response } from "express";
-import { TwitterController } from "../../../src/controllers/twitter.controller";
+
 
 describe("GET /tweets/:id_tweet", () => {
   const server = createServer();

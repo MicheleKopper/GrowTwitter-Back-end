@@ -7,7 +7,7 @@ import { ReplyService } from "../../../src/services/reply.service";
 describe("POST /replies", () => {
   const server = createServer();
   const endpoint = "/replies";
-  const token = "Bearer " + makeToken(); // Simula um token válido
+  const token = makeToken();
   const validUuid = randomUUID();
 
   const replyData = {

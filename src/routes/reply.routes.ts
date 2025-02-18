@@ -3,6 +3,7 @@ import { CreateReplyMiddleware } from "../middlewares/reply/create-reply-middlew
 import { ReplyController } from "../controllers/reply.controller";
 import { UpdateReplyMiddleware } from "../middlewares/reply/update-reply-middlewares";
 import { AuthMiddleware } from "../middlewares/auth/auth-middlewares";
+import { FindOneByIdMiddleware } from "../middlewares/reply/find-one-by-id-reply-midllewares";
 
 export class ReplyRoutes {
   public static execute(): Router {
@@ -21,16 +22,12 @@ export class ReplyRoutes {
     );
 
     // GET - LISTA TODAS AS RESPOSTAS
-    router.get(
-      "/replies/",
-      [AuthMiddleware.validate],
-      ReplyController.findAll
-    );
+    router.get("/replies/", [AuthMiddleware.validate], ReplyController.findAll);
 
     // GET - FILTRAR UMA RESPOSTA ESPECÍFICA POR ID
     router.get(
       "/replies/:id_reply",
-      [AuthMiddleware.validate],
+      [AuthMiddleware.validate, FindOneByIdMiddleware.validateRequired],
       ReplyController.findOneById
     );
 
