@@ -1,8 +1,6 @@
-import { query, Request, Response } from "express";
+import { Request, Response } from "express";
 import { CreateReplyDto } from "../dtos/reply.dto";
 import { ReplyService } from "../services/reply.service";
-import { TweetType } from "@prisma/client";
-import { log } from "console";
 
 export class ReplyController {
   public static async create(req: Request, res: Response): Promise<void> {

@@ -1,21 +1,81 @@
 import supertest from "supertest";
+import { createServer } from "../../../src/express.server";
 import { makeToken } from "../make-token";
 import { ReplyService } from "../../../src/services/reply.service";
-import { createServer } from "../../../src/express.server";
-import { TwitterMock } from "../../services/mocks/twitter.mock";
+
+import "dotenv/config";
 
 describe("GET /replies/:id_reply", () => {
   const server = createServer();
-  const token = makeToken();
   const endpoint = "/replies";
 
-  it("Deve retornar 200 e o reply quando o ID for válido", async () => {
-    const mockReply = TwitterMock.build({
-      id_reply: "reply-1",
-      conteudo: "Resposta de teste",
+  // TOKEN AUSENTE
+  it("Deve retornar 401 quando não for informado o token", async () => {
+    const response = await supertest(server).get(`${endpoint}/reply1`);
+    expect(response.statusCode).toBe(401);
+    expect(response.body).toEqual({
+      ok: false,
+      message: "Não autorizado! Token obrigatório",
+    });
+  });
+
+  // TOKEN INVÁLIDO
+  it("Deve retornar 401 quando for informado um token inválido", async () => {
+    const response = await supertest(server)
+      .get(`${endpoint}/reply1`)
+      .set("Authorization", "Bearer invalid_token");
+
+    expect(response.statusCode).toBe(401);
+    expect(response.body).toEqual({
+      ok: false,
+      message: "Não autorizado! Token inválido ou expirado",
+    });
+  });
+
+  // ID AUSENTE OU INVÁLIDO
+  it("Deve retornar 400 quando o id_reply estiver ausente ou inválido", async () => {
+    const token = makeToken();
+    const response = await supertest(server)
+      .get(`${endpoint}/undefined`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body.ok).toBe(false);
+    expect(response.body.message).toBe("O id_reply é obrigatório!");
+  });
+
+  // REPLY NÃO ENCONTRADO
+  it("Deve retornar 404 quando o reply não for encontrado", async () => {
+    const token = makeToken();
+    const idReply = "replyInexistente";
+
+    jest.spyOn(ReplyService.prototype, "findOneById").mockResolvedValue({
+      ok: false,
+      code: 404,
+      message: "Reply não encontrado.",
     });
 
-    // Mockando o serviço para retornar um reply
+    const response = await supertest(server)
+      .get(`${endpoint}/${idReply}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body.ok).toBe(false);
+    expect(response.body.message).toBe("Reply não encontrado.");
+  });
+
+  // REPLY ENCONTRADO COM SUCESSO
+  it("Deve retornar 200 e os dados do reply quando encontrado", async () => {
+    const token = makeToken();
+    const idReply = "reply1";
+    const mockReply = {
+      id: "reply1",
+      conteudo: "Uma resposta qualquer",
+      type: "R",
+      idUsuario: "user1",
+      idTweet: "tweet1",
+    };
+
     jest.spyOn(ReplyService.prototype, "findOneById").mockResolvedValue({
       ok: true,
       code: 200,
@@ -24,7 +84,7 @@ describe("GET /replies/:id_reply", () => {
     });
 
     const response = await supertest(server)
-      .get(`${endpoint}/reply-1`)
+      .get(`${endpoint}/${idReply}`)
       .set("Authorization", `Bearer ${token}`);
 
     expect(response.statusCode).toBe(200);
@@ -33,35 +93,21 @@ describe("GET /replies/:id_reply", () => {
     expect(response.body.data).toEqual(mockReply);
   });
 
-  it("Deve retornar 404 quando o reply não for encontrado", async () => {
-    jest.spyOn(ReplyService.prototype, "findOneById").mockResolvedValue({
-      ok: false,
-      code: 404,
-      message: "Reply não encontrado.",
-    });
+  // ERRO NO SERVIDOR
+  it("Deve retornar 500 se ocorrer um erro interno no servidor", async () => {
+    const token = makeToken();
+    const idReply = "reply1";
 
-    const response = await supertest(server)
-      .get(`${endpoint}/reply-inexistente`)
-      .set("Authorization", `Bearer ${token}`);
-
-    expect(response.statusCode).toBe(404);
-    expect(response.body.ok).toBe(false);
-    expect(response.body.message).toBe("Reply não encontrado.");
-  });
-
-  it("Deve retornar 500 quando houver erro no servidor", async () => {
     jest
       .spyOn(ReplyService.prototype, "findOneById")
-      .mockRejectedValue(new Error("Erro ao buscar reply"));
+      .mockRejectedValue(new Error("Erro inesperado"));
 
     const response = await supertest(server)
-      .get(`${endpoint}/reply-1`)
+      .get(`${endpoint}/${idReply}`)
       .set("Authorization", `Bearer ${token}`);
 
     expect(response.statusCode).toBe(500);
     expect(response.body.ok).toBe(false);
-    expect(response.body.message).toBe(
-      "Erro do servidor: Erro ao buscar reply"
-    );
+    expect(response.body.message).toBe("Erro do servidor: Erro inesperado");
   });
 });
