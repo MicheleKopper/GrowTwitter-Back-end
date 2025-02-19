@@ -11,21 +11,18 @@ export class FollowController {
       const { followerId, followingId } = req.body;
 
       // Montar o objeto DTO
-      const data: CreateFollowDto = {
-        followerId,
-        followingId,
-      };
+      const data: CreateFollowDto = { followerId, followingId };
 
       // Chamar o serviço responsável
       const service = new FollowService();
       const result = await service.create(data);
 
-      // Retornar para o cliente as infos que o serviço retornar
-      const { code, ...response } = result;
-      res.status(code).json(response);
+      // Retornar para o cliente as infos que o serviço retornar, sem remover "code"
+      res.status(result.code).json(result);
     } catch (error: any) {
       res.status(500).json({
         ok: false,
+        code: 500,
         message: `Erro do servidor: ${error.message}`,
       });
     }
@@ -36,7 +33,6 @@ export class FollowController {
     res: Response
   ): Promise<void> {
     try {
-      // 1 - Pegar os dados do params: id
       const { id_usuario } = req.params;
 
       if (!id_usuario) {
@@ -44,15 +40,12 @@ export class FollowController {
           ok: false,
           message: "Informe o id_usuario!",
         });
+        return;
       }
 
-      //   2 - Chamar o service
       const service = new FollowService();
-      const result = await service.findAllFollowers({
-        id_usuario: id_usuario as string,
-      });
+      const result = await service.findAllFollowers({ id_usuario });
 
-      // 3 - Retornar para o cliente as infos que o serviço retornar
       const { code, ...response } = result;
       res.status(code).json(response);
     } catch (error: any) {

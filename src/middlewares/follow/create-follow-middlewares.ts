@@ -11,6 +11,7 @@ export class CreateFollowMiddleware {
     if (!followerId || !followingId) {
       res.status(400).json({
         ok: false,
+        code: 400, // Adicionar isso para manter o padrão
         message: "Preencha os IDs do seguidor e seguido!",
       });
       return;
@@ -19,10 +20,12 @@ export class CreateFollowMiddleware {
     if (followerId === followingId) {
       res.status(400).json({
         ok: false,
+        code: 400, // Adicionar isso também
         message: "Você não pode seguir a si mesmo!",
       });
       return;
     }
+
     next();
   }
 }
