@@ -55,14 +55,14 @@ export class TwitterService {
   }
 
   public async findOneById(id_tweet: string): Promise<ResponseApi> {
-    // Buscar o tweet pelo ID
+    // Buscar o tweet pelo ID, incluindo o usuário e as respostas (replies)
     const tweet = await prisma.tweet.findUnique({
       where: { id_tweet: id_tweet },
       include: {
-        usuario: true,
+        usuario: true, // Incluindo o relacionamento com o usuário
         replies: {
           include: {
-            usuario: true,
+            usuario: true, // Incluindo o relacionamento do usuário nas respostas
           },
         },
       },
@@ -77,11 +77,11 @@ export class TwitterService {
       };
     }
 
-    // Retornar o tweet encontrado
+    // Retornar o tweet encontrado com as relações
     return {
       ok: true,
       code: 200,
-      message: "mockService",
+      message: "Tweet encontrado com sucesso!",
       data: tweet,
     };
   }
@@ -103,13 +103,13 @@ export class TwitterService {
       };
     }
 
-    // 2 -  Atualizar o tweet no banco de dados
+    // 2 - Atualizar o tweet no banco de dados
     const twitterUpdate = await prisma.tweet.update({
-      where: { id_tweet: id_tweet },
+      where: { id_tweet },
       data: {
-        conteudo: updateTwitter.conteudo,
-        type: updateTwitter.type,
-        idTweetPai: updateTwitter.idTweetPai,
+        conteudo: updateTwitter.conteudo || tweet.conteudo, // Usar o conteúdo existente se não for fornecido
+        type: updateTwitter.type || tweet.type, // Usar o tipo existente se não for fornecido
+        idTweetPai: updateTwitter.idTweetPai || tweet.idTweetPai, // Manter o idTweetPai atual se não for fornecido
       },
     });
 
@@ -118,7 +118,13 @@ export class TwitterService {
       ok: true,
       code: 200,
       message: "Tweet atualizado com sucesso!",
-      data: twitterUpdate,
+      data: {
+        id_tweet: twitterUpdate.id_tweet,
+        idUsuario: twitterUpdate.idUsuario,
+        conteudo: twitterUpdate.conteudo,
+        type: twitterUpdate.type,
+        idTweetPai: twitterUpdate.idTweetPai,
+      },
     };
   }
 

@@ -1,10 +1,12 @@
 import { Tweet, TweetType } from "@prisma/client";
 
 interface TweetMock extends Tweet {
-  usuario?: {
+  usuario: {
     id_usuario: string;
     nome: string;
     username: string;
+    email: string;
+    senha: string;
   };
   id_reply: string;
   replies?: TweetMock[];
@@ -23,6 +25,8 @@ export class TwitterMock {
         id_usuario: "Id-123",
         nome: "Michele",
         username: "@michele",
+        email: "michele@gmail.com",
+        senha: "senha123",
       },
       replies: params?.replies || [],
     };

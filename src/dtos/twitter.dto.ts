@@ -4,7 +4,7 @@ export interface CreateTwitterDto {
   conteudo: string;
   type: TweetType;
   idUsuario: string;
-  idTweetPai?: string;
+  idTweetPai?: string | null 
 }
 
 export interface QueryFilterTwitterDto {
@@ -15,5 +15,5 @@ export interface QueryFilterTwitterDto {
 export interface UpdateTwitterDto {
   conteudo?: string;
   type?: TweetType;
-  idTweetPai?: string;
+  idTweetPai?: string | null;
 }
