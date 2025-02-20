@@ -14,7 +14,7 @@ describe("Find all tweets", () => {
     const tweetsMock = Array.from({ length: 5 }, (_, index) => {
       return TwitterMock.build({
         conteudo: `conteudo${index}`,
-        type: "T", 
+        type: "T",
       });
     });
 
@@ -23,7 +23,7 @@ describe("Find all tweets", () => {
     // Ojeto query para busca
     const query: QueryFilterTwitterDto = {
       conteudo: "conteudo",
-      type: "T", 
+      type: "T",
     };
 
     // Act

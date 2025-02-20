@@ -66,7 +66,10 @@ export class UsuarioService {
     // Buscar usuário e incluir relações
     const usuario = await prisma.usuario.findUnique({
       where: { id_usuario },
-      include: { Tweet: true, following: true },
+      include: {
+        Tweet: true,
+        following: true,
+      },
     });
 
     // Validar se existir
@@ -79,16 +82,16 @@ export class UsuarioService {
     }
 
     // Verificar se o usuário logado segue o usuário pesquisado
-    const follow = usuario.following.find((f) => {
-      f.followerId === usuarioLoggedId && f.followingId === id_usuario;
-    });
+    const follow = usuario.following.find(
+      (f) => f.followerId === usuarioLoggedId && f.followingId === id_usuario
+    );
 
     // Retornar o dado
     return {
       ok: true,
       code: 200,
       message: "Usuário encontrado!",
-      data: { ...usuario, isFollowing: follow },
+      data: { ...usuario, isFollowing: !!follow }, // Retorna true ou false
     };
   }
 

@@ -17,7 +17,7 @@ describe("GET /tweets", () => {
     expect(response).toHaveProperty("statusCode", 401);
     expect(response).toHaveProperty("body", {
       ok: false,
-      message: "Não autenticado!",
+      message: "Não autorizado! Token obrigatório",
     });
   });
 
@@ -30,7 +30,7 @@ describe("GET /tweets", () => {
     expect(response).toHaveProperty("statusCode", 401);
     expect(response).toHaveProperty("body", {
       ok: false,
-      message: "Não autenticado!",
+      message: "Não autorizado! Token inválido ou expirado",
     });
   });
 
@@ -68,6 +68,7 @@ describe("GET /tweets", () => {
 
     expect(response.statusCode).toBe(400);
     expect(response.body).toEqual({
+      ok: false,
       message: "O tipo deve ser 'Tweet' ou 'Reply'",
     });
   });
