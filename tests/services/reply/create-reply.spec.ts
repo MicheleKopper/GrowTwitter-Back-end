@@ -3,7 +3,7 @@ import { prismaMock } from "../../config/prisma.mock";
 import { CreateReplyDto } from "../../../src/dtos/reply.dto";
 import { ReplyMock } from "../mocks/reply.mock";
 
-describe("ReplyService", () => {
+describe("Reply create", () => {
   const createSut = () => new ReplyService();
 
   it("Deve criar uma resposta com sucesso", async () => {

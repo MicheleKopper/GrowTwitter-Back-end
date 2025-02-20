@@ -10,6 +10,15 @@ export class FollowService {
     try {
       const { followerId, followingId } = createFollow;
 
+      // Verificar se o usuário está tentando seguir a si mesmo
+      if (followerId === followingId) {
+        return {
+          ok: false,
+          code: 409,
+          message: "Você não pode seguir a si mesmo!",
+        };
+      }
+
       // VALIDAÇÃO SE JÁ ESTÁ SEGUINDO
       const follow = await prisma.follow.findFirst({
         where: { followerId, followingId },
@@ -57,8 +66,9 @@ export class FollowService {
     // Buscar seguidores no banco de dados
     const followers = await prisma.follow.findMany({
       where: { followingId: id_usuario },
-      select: {
+      include: {
         follower: {
+          // Incluindo a relação do seguidor
           select: {
             id_usuario: true,
             username: true,
@@ -68,12 +78,14 @@ export class FollowService {
       },
     });
 
+
     return {
       ok: true,
       code: 200,
       message: "Seguidores listados com sucesso!",
-      data: followers.map((f) => f.follower),
+      data: followers.map((f) => f.follower), // Aqui f.follower será acessado corretamente
     };
+
   }
 
   public async delete(id_follow: string): Promise<ResponseApi> {

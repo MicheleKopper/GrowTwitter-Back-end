@@ -4,7 +4,7 @@ import { TwitterService } from "../../../src/services/twitter.service";
 import { prismaMock } from "../../config/prisma.mock";
 import { TwitterMock } from "../mocks/twitter.mock";
 
-describe("Find all tweets", () => {
+describe("FindAll tweets", () => {
   const createSut = () => new TwitterService();
 
   it("Deve retornar todos os tweets", async () => {

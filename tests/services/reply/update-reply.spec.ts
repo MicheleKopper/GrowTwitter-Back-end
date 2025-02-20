@@ -3,7 +3,7 @@ import { prismaMock } from "../../config/prisma.mock";
 import { ReplyMock } from "../mocks/reply.mock"; // Adapte esse caminho para seu mock
 import { UpdateReplyDto } from "../../../src/dtos/reply.dto";
 
-describe("ReplyService", () => {
+describe("Reply update", () => {
   const createSut = () => new ReplyService();
 
   it("Deve atualizar uma resposta com sucesso", async () => {
