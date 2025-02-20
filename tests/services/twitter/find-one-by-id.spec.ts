@@ -9,12 +9,12 @@ describe("Find one tweet by ID", () => {
 
     it("Deve retornar um tweet com o usuário quando um ID válido é fornecido", async () => {
       const sut = createSut();
-      const tweetMock = TwitterMock.build(); // Gera o mock do tweet
+      const tweetMock = TwitterMock.build(); 
 
       // Criando o mock do tweet com a estrutura completa, incluindo o usuário com senha
       const tweetPrismaMock: Tweet & { usuario: Usuario } = {
         ...tweetMock,
-        usuario: UsuarioMock.build({ senha: "senha123" }), // Garantir que a senha seja incluída
+        usuario: UsuarioMock.build({ senha: "senha123" }), 
       };
 
       prismaMock.tweet.findUnique.mockResolvedValue(tweetPrismaMock);
@@ -29,11 +29,11 @@ describe("Find one tweet by ID", () => {
         conteudo: tweetMock.conteudo,
         type: tweetMock.type,
         usuario: expect.objectContaining({
-          id_usuario: expect.any(String), // Permitindo que o id_usuario seja dinâmico
+          id_usuario: expect.any(String), 
           nome: tweetMock.usuario.nome,
           username: tweetMock.usuario.username,
           email: tweetMock.usuario.email,
-          senha: tweetMock.usuario.senha, // Verificar a senha
+          senha: tweetMock.usuario.senha, 
         }),
       });
     });
