@@ -10,6 +10,7 @@ export class UpdateLikeMiddleware {
         ok: false,
         message: "Id Usuário precisa ser uma string!",
       });
+      return
     }
 
     if (idTweet && typeof idTweet !== "string") {
@@ -17,6 +18,7 @@ export class UpdateLikeMiddleware {
         ok: false,
         message: "Id Usuário precisa ser uma string!",
       });
+      return
     }
 
     next();
@@ -30,6 +32,7 @@ export class UpdateLikeMiddleware {
         ok: false,
         message: "Ao menos um campo (idUsuario ou idTweet) deve ser fornecido!",
       });
+      return
     }
 
     next();

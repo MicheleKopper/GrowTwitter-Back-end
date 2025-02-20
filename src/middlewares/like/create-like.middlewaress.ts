@@ -10,6 +10,7 @@ export class CreateLikeMiddleware {
         ok: false,
         message: "idUsuario deve ser uma string!",
       });
+      return
     }
 
     if (!idTweet || typeof idTweet !== "string") {
@@ -17,6 +18,7 @@ export class CreateLikeMiddleware {
         ok: false,
         message: "idTweet deve ser uma string!",
       });
+      return
     }
 
     next();

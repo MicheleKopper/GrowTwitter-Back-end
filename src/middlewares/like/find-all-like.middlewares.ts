@@ -9,6 +9,7 @@ export class FindAllLikeMidlleware {
         ok: false,
         message: "Id do usuário deve ser uma string",
       });
+      return;
     }
 
     if (idTweet && typeof idTweet !== "string") {
@@ -16,7 +17,9 @@ export class FindAllLikeMidlleware {
         ok: false,
         message: "Id do tweet deve ser uma string",
       });
+      return;
     }
+
     next();
   }
 }

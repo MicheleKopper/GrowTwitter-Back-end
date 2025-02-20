@@ -24,6 +24,7 @@ export class LikeRoutes {
     router.get(
       "/likes",
       [
+        AuthMiddleware.validate,
         FindAllLikeMidlleware.validateTypes, // Valida os tipos dos parâmetros de consulta
       ],
       LikeController.findAll
@@ -32,7 +33,7 @@ export class LikeRoutes {
     // GET - FILTRAR LIKES DE UM USUÁRIO ESPECÍFICO
     router.get(
       "/likes/:id_usuario",
-      [ValidateUuidMiddleware.validate], // Valida o UUID do usuário
+      [AuthMiddleware.validate, ValidateUuidMiddleware.validate], // Valida o UUID do usuário
       LikeController.findOneById
     );
 
