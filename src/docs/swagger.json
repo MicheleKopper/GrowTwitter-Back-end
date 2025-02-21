@@ -15,7 +15,7 @@
       "description": "Servidor local de desenvolvimento"
     },
     {
-      "url": "https://render.com",
+      "url": "https://growtwitter-back-end.onrender.com",
       "description": "API de produção"
     }
   ],
