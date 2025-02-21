@@ -113,4 +113,36 @@ describe("POST /likes", () => {
       message: "Erro do servidor: Erro interno",
     });
   });
+
+  // ID USUÁRIO NÃO É UMA STRING
+  it("Deve retornar 400 se o idUsuario não for uma string", async () => {
+    const token = makeToken();
+
+    const response = await supertest(server)
+      .post(endpoint)
+      .set("Authorization", `Bearer ${token}`)
+      .send({ idUsuario: 123, idTweet: "tweet-123" }); // idUsuario não é uma string
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual({
+      ok: false,
+      message: "idUsuario deve ser uma string!",
+    });
+  });
+
+  // ID TWEET NÃO É UMA STRING
+  it("Deve retornar 400 se o idTweet não for uma string", async () => {
+    const token = makeToken();
+
+    const response = await supertest(server)
+      .post(endpoint)
+      .set("Authorization", `Bearer ${token}`)
+      .send({ idUsuario: "user-123", idTweet: 123 }); // idTweet não é uma string
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual({
+      ok: false,
+      message: "idTweet deve ser uma string!",
+    });
+  });
 });

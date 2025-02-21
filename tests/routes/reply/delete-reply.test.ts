@@ -72,4 +72,22 @@ describe("DELETE /replies/:id_reply", () => {
     expect(response.body.message).toBe("Reply deletado com sucesso!");
     expect(response.body.data).toEqual(replyDelete);
   });
+
+  it("Deve retornar 500 se ocorrer um erro interno no servidor", async () => {
+    const token = makeToken();
+
+    jest
+      .spyOn(ReplyService.prototype, "delete")
+      .mockRejectedValue(new Error("Falha inesperada"));
+
+    const response = await supertest(server)
+      .delete(`${endpoint}/valid-reply-id`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(500);
+    expect(response.body).toEqual({
+      ok: false,
+      message: "Erro do servidor: Falha inesperada",
+    });
+  });
 });

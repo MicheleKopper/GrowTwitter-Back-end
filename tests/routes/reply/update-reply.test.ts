@@ -113,4 +113,44 @@ describe("put /replies/:id_reply", () => {
     expect(response.body.message).toBe("Resposta atualizada com sucesso!");
     expect(response.body.data).toEqual(replyUpdate);
   });
+
+  it("Deve retornar 404 quando o reply não for encontrado", async () => {
+    const token = makeToken();
+    const idReplyInexistente = "reply-nao-existe";
+
+    jest.spyOn(ReplyService.prototype, "update").mockResolvedValue({
+      ok: false,
+      code: 404,
+      message: "Reply não encontrado.",
+    });
+
+    const response = await supertest(server)
+      .put(`${endpoint}/${idReplyInexistente}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({ conteudo: "Novo conteúdo" });
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body.ok).toBe(false);
+    expect(response.body.message).toBe("Reply não encontrado.");
+  });
+
+  it("Deve retornar 500 se ocorrer um erro interno no serviço", async () => {
+    const token = makeToken();
+    const idReply = "valid-reply-id";
+
+    jest
+      .spyOn(ReplyService.prototype, "update")
+      .mockRejectedValue(new Error("Erro inesperado no banco"));
+
+    const response = await supertest(server)
+      .put(`${endpoint}/${idReply}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({ conteudo: "Texto válido" });
+
+    expect(response.statusCode).toBe(500);
+    expect(response.body.ok).toBe(false);
+    expect(response.body.message).toBe(
+      "Erro do servidor: Erro inesperado no banco"
+    );
+  });
 });

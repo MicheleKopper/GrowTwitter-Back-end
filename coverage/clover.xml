@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1740077331079" clover="3.2.0">
-  <project timestamp="1740077331080" name="All files">
-    <metrics statements="698" coveredstatements="584" conditionals="155" coveredconditionals="102" methods="87" coveredmethods="79" elements="940" coveredelements="765" complexity="0" loc="698" ncloc="698" packages="12" files="39" classes="39"/>
+<coverage generated="1740156403518" clover="3.2.0">
+  <project timestamp="1740156403518" name="All files">
+    <metrics statements="713" coveredstatements="623" conditionals="163" coveredconditionals="105" methods="87" coveredmethods="85" elements="963" coveredelements="813" complexity="0" loc="713" ncloc="713" packages="12" files="39" classes="39"/>
     <package name="src">
       <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="express.server.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\express.server.ts">
@@ -18,7 +18,7 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="197" coveredstatements="177" conditionals="6" coveredconditionals="2" methods="24" coveredmethods="24"/>
+      <metrics statements="197" coveredstatements="180" conditionals="6" coveredconditionals="2" methods="24" coveredmethods="24"/>
       <file name="auth.controller.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\controllers\auth.controller.ts">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="2" count="24" type="stmt"/>
@@ -32,16 +32,16 @@
         <line num="17" count="1" type="stmt"/>
       </file>
       <file name="follow.controller.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\controllers\follow.controller.ts">
-        <metrics statements="29" coveredstatements="24" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <metrics statements="29" coveredstatements="25" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="3" count="24" type="stmt"/>
         <line num="7" count="24" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
-        <line num="18" count="2" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
         <line num="35" count="2" type="stmt"/>
         <line num="36" count="2" type="stmt"/>
         <line num="38" count="2" type="cond" truecount="0" falsecount="1"/>
@@ -109,7 +109,7 @@
         <line num="118" count="1" type="stmt"/>
       </file>
       <file name="reply.controller.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\controllers\reply.controller.ts">
-        <metrics statements="40" coveredstatements="36" conditionals="1" coveredconditionals="0" methods="5" coveredmethods="5"/>
+        <metrics statements="40" coveredstatements="38" conditionals="1" coveredconditionals="0" methods="5" coveredmethods="5"/>
         <line num="3" count="24" type="stmt"/>
         <line num="5" count="24" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
@@ -125,31 +125,31 @@
         <line num="35" count="1" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
         <line num="38" count="1" type="stmt"/>
-        <line num="46" count="3" type="stmt"/>
-        <line num="48" count="3" type="stmt"/>
-        <line num="51" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="46" count="4" type="stmt"/>
+        <line num="48" count="4" type="stmt"/>
+        <line num="51" count="4" type="cond" truecount="0" falsecount="1"/>
         <line num="52" count="0" type="stmt"/>
         <line num="56" count="0" type="stmt"/>
-        <line num="60" count="3" type="stmt"/>
-        <line num="61" count="3" type="stmt"/>
+        <line num="60" count="4" type="stmt"/>
+        <line num="61" count="4" type="stmt"/>
         <line num="64" count="2" type="stmt"/>
         <line num="65" count="2" type="stmt"/>
-        <line num="67" count="1" type="stmt"/>
-        <line num="75" count="2" type="stmt"/>
-        <line num="76" count="2" type="stmt"/>
-        <line num="77" count="2" type="stmt"/>
-        <line num="79" count="2" type="stmt"/>
-        <line num="80" count="2" type="stmt"/>
-        <line num="82" count="2" type="stmt"/>
-        <line num="83" count="2" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="93" count="2" type="stmt"/>
-        <line num="95" count="2" type="stmt"/>
-        <line num="98" count="2" type="stmt"/>
-        <line num="99" count="2" type="stmt"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="75" count="4" type="stmt"/>
+        <line num="76" count="4" type="stmt"/>
+        <line num="77" count="4" type="stmt"/>
+        <line num="79" count="4" type="stmt"/>
+        <line num="80" count="4" type="stmt"/>
+        <line num="82" count="3" type="stmt"/>
+        <line num="83" count="3" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="93" count="3" type="stmt"/>
+        <line num="95" count="3" type="stmt"/>
+        <line num="98" count="3" type="stmt"/>
+        <line num="99" count="3" type="stmt"/>
         <line num="102" count="2" type="stmt"/>
         <line num="103" count="2" type="stmt"/>
-        <line num="105" count="0" type="stmt"/>
+        <line num="105" count="1" type="stmt"/>
       </file>
       <file name="twitter.controller.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\controllers\twitter.controller.ts">
         <metrics statements="37" coveredstatements="34" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
@@ -257,21 +257,21 @@
         <metrics statements="17" coveredstatements="15" conditionals="5" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="2" count="24" type="stmt"/>
         <line num="4" count="24" type="stmt"/>
-        <line num="11" count="104" type="stmt"/>
-        <line num="13" count="104" type="cond" truecount="1" falsecount="0"/>
+        <line num="11" count="110" type="stmt"/>
+        <line num="13" count="110" type="cond" truecount="1" falsecount="0"/>
         <line num="14" count="18" type="stmt"/>
         <line num="18" count="18" type="stmt"/>
-        <line num="22" count="86" type="stmt"/>
-        <line num="24" count="86" type="cond" truecount="2" falsecount="1"/>
+        <line num="22" count="92" type="stmt"/>
+        <line num="24" count="92" type="cond" truecount="2" falsecount="1"/>
         <line num="25" count="0" type="stmt"/>
         <line num="29" count="0" type="stmt"/>
-        <line num="32" count="86" type="stmt"/>
-        <line num="34" count="86" type="stmt"/>
-        <line num="36" count="86" type="cond" truecount="1" falsecount="0"/>
+        <line num="32" count="92" type="stmt"/>
+        <line num="34" count="92" type="stmt"/>
+        <line num="36" count="92" type="cond" truecount="1" falsecount="0"/>
         <line num="37" count="17" type="stmt"/>
         <line num="41" count="17" type="stmt"/>
-        <line num="44" count="69" type="stmt"/>
-        <line num="51" count="69" type="stmt"/>
+        <line num="44" count="75" type="stmt"/>
+        <line num="51" count="75" type="stmt"/>
       </file>
       <file name="login-middlewares.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\middlewares\auth\login-middlewares.ts">
         <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
@@ -295,18 +295,18 @@
       </file>
     </package>
     <package name="src.middlewares.follow">
-      <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+      <metrics statements="9" coveredstatements="7" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
       <file name="create-follow-middlewares.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\middlewares\follow\create-follow-middlewares.ts">
-        <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <metrics statements="9" coveredstatements="7" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
         <line num="3" count="24" type="stmt"/>
         <line num="9" count="5" type="stmt"/>
-        <line num="11" count="5" type="cond" truecount="3" falsecount="0"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
-        <line num="20" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="11" count="5" type="cond" truecount="2" falsecount="1"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="20" count="5" type="cond" truecount="1" falsecount="0"/>
         <line num="21" count="1" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
-        <line num="29" count="2" type="stmt"/>
+        <line num="29" count="4" type="stmt"/>
       </file>
     </package>
     <package name="src.middlewares.like">
@@ -314,13 +314,13 @@
       <file name="create-like.middlewaress.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\middlewares\like\create-like.middlewaress.ts">
         <metrics statements="9" coveredstatements="9" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
         <line num="3" count="24" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="8" count="4" type="cond" truecount="3" falsecount="0"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="16" count="3" type="cond" truecount="3" falsecount="0"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="8" count="6" type="cond" truecount="3" falsecount="0"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="16" count="4" type="cond" truecount="3" falsecount="0"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
         <line num="24" count="2" type="stmt"/>
       </file>
       <file name="find-all-like.middlewares.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\middlewares\like\find-all-like.middlewares.ts">
@@ -395,23 +395,23 @@
       <file name="find-one-by-id-reply-midllewares.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\middlewares\reply\find-one-by-id-reply-midllewares.ts">
         <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="3" count="24" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="7" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="7" count="5" type="cond" truecount="4" falsecount="0"/>
         <line num="8" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="15" count="3" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
       </file>
       <file name="update-reply-middlewares.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\middlewares\reply\update-reply-middlewares.ts">
         <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="3" count="24" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="8" count="4" type="cond" truecount="3" falsecount="0"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="8" count="6" type="cond" truecount="3" falsecount="0"/>
         <line num="9" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
-        <line num="17" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="17" count="5" type="cond" truecount="1" falsecount="0"/>
         <line num="18" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
+        <line num="25" count="4" type="stmt"/>
       </file>
     </package>
     <package name="src.middlewares.twitter">
@@ -651,33 +651,33 @@
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="150" coveredstatements="119" conditionals="35" coveredconditionals="24" methods="26" coveredmethods="21"/>
+      <metrics statements="165" coveredstatements="152" conditionals="43" coveredconditionals="27" methods="26" coveredmethods="25"/>
       <file name="auth.service.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\services\auth.service.ts">
-        <metrics statements="19" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="2" count="24" type="stmt"/>
-        <line num="5" count="24" type="stmt"/>
-        <line num="6" count="24" type="stmt"/>
-        <line num="9" count="24" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="19" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="32" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
+        <metrics statements="19" coveredstatements="19" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="2" count="25" type="stmt"/>
+        <line num="5" count="25" type="stmt"/>
+        <line num="6" count="25" type="stmt"/>
+        <line num="9" count="25" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
+        <line num="19" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="32" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
       </file>
       <file name="follow.service.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\services\follow.service.ts">
-        <metrics statements="23" coveredstatements="11" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="1"/>
-        <line num="1" count="25" type="stmt"/>
-        <line num="8" count="25" type="stmt"/>
+        <metrics statements="23" coveredstatements="22" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
+        <line num="1" count="27" type="stmt"/>
+        <line num="8" count="27" type="stmt"/>
         <line num="10" count="3" type="stmt"/>
         <line num="11" count="3" type="stmt"/>
         <line num="14" count="3" type="cond" truecount="1" falsecount="0"/>
@@ -688,17 +688,17 @@
         <line num="36" count="1" type="stmt"/>
         <line num="40" count="1" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="58" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="82" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="93" count="0" type="stmt"/>
-        <line num="99" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="100" count="0" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
-        <line num="114" count="0" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="58" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="91" count="2" type="stmt"/>
+        <line num="97" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="106" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
       </file>
       <file name="index.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\services\index.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -791,66 +791,81 @@
         <line num="151" count="1" type="stmt"/>
       </file>
       <file name="usuario.service.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\services\usuario.service.ts">
-        <metrics statements="30" coveredstatements="29" conditionals="8" coveredconditionals="6" methods="6" coveredmethods="5"/>
+        <metrics statements="45" coveredstatements="36" conditionals="16" coveredconditionals="5" methods="6" coveredmethods="5"/>
         <line num="1" count="29" type="stmt"/>
         <line num="4" count="29" type="stmt"/>
         <line num="6" count="29" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
-        <line num="15" count="2" type="cond" truecount="3" falsecount="0"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="13" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
+        <line num="36" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="37" count="1" type="stmt"/>
         <line num="46" count="2" type="stmt"/>
-        <line num="54" count="2" type="stmt"/>
-        <line num="67" count="2" type="stmt"/>
-        <line num="76" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="77" count="1" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
-        <line num="86" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="63" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="76" count="2" type="stmt"/>
+        <line num="77" count="2" type="stmt"/>
+        <line num="82" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="83" count="1" type="stmt"/>
         <line num="90" count="1" type="stmt"/>
-        <line num="103" count="2" type="stmt"/>
-        <line num="107" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="108" count="1" type="stmt"/>
-        <line num="116" count="1" type="stmt"/>
-        <line num="122" count="1" type="stmt"/>
-        <line num="132" count="2" type="stmt"/>
-        <line num="136" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="137" count="1" type="stmt"/>
-        <line num="144" count="1" type="stmt"/>
-        <line num="149" count="1" type="stmt"/>
-        <line num="154" count="1" type="stmt"/>
+        <line num="91" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="102" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="103" count="0" type="stmt"/>
+        <line num="115" count="2" type="stmt"/>
+        <line num="116" count="2" type="stmt"/>
+        <line num="120" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="121" count="1" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="141" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="142" count="0" type="stmt"/>
+        <line num="151" count="2" type="stmt"/>
+        <line num="152" count="2" type="stmt"/>
+        <line num="156" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="157" count="1" type="stmt"/>
+        <line num="164" count="1" type="stmt"/>
+        <line num="166" count="1" type="stmt"/>
+        <line num="170" count="1" type="stmt"/>
+        <line num="178" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="179" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.utils">
-      <metrics statements="20" coveredstatements="14" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="2"/>
+      <metrics statements="20" coveredstatements="19" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="4"/>
       <file name="bcrypt.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\utils\bcrypt.ts">
-        <metrics statements="6" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="1" count="29" type="stmt"/>
-        <line num="3" count="29" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="1" count="31" type="stmt"/>
+        <line num="3" count="31" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
       </file>
       <file name="jwt.ts" path="C:\Users\michele\Documents\GROWDEV\02 - Intermediário\4 - BANCO DE DADOS II\Final de modulo - Banco de dados II\src\utils\jwt.ts">
-        <metrics statements="14" coveredstatements="12" conditionals="4" coveredconditionals="1" methods="2" coveredmethods="2"/>
-        <line num="1" count="24" type="stmt"/>
-        <line num="2" count="24" type="stmt"/>
-        <line num="5" count="24" type="stmt"/>
-        <line num="10" count="68" type="cond" truecount="0" falsecount="1"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="14" count="68" type="stmt"/>
-        <line num="23" count="68" type="stmt"/>
-        <line num="24" count="68" type="stmt"/>
-        <line num="29" count="86" type="stmt"/>
-        <line num="30" count="86" type="cond" truecount="0" falsecount="1"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="34" count="86" type="stmt"/>
-        <line num="35" count="69" type="stmt"/>
-        <line num="37" count="17" type="stmt"/>
+        <metrics statements="14" coveredstatements="13" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="27" type="stmt"/>
+        <line num="2" count="27" type="stmt"/>
+        <line num="5" count="27" type="stmt"/>
+        <line num="8" count="77" type="cond" truecount="1" falsecount="0"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="12" count="76" type="stmt"/>
+        <line num="21" count="76" type="stmt"/>
+        <line num="22" count="76" type="stmt"/>
+        <line num="27" count="94" type="stmt"/>
+        <line num="28" count="94" type="cond" truecount="0" falsecount="1"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="32" count="94" type="stmt"/>
+        <line num="33" count="76" type="stmt"/>
+        <line num="35" count="18" type="stmt"/>
       </file>
     </package>
   </project>

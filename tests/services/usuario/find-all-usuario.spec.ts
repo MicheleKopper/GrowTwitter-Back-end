@@ -7,7 +7,7 @@ import { UsuarioMock } from "../mocks/usuario.mock";
 // Busca de todos os usuários pelo nome
 // Busca de todos os usuários
 
-describe("Find all user", () => {
+describe("Usuario findAll", () => {
   const createSut = () => new UsuarioService();
 
   it("Deve retornar o usuário quando filtrado pelo nome fornecido", async () => {

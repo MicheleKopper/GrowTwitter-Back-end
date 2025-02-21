@@ -3,7 +3,7 @@ import { prismaMock } from "../../config/prisma.mock";
 import { UsuarioMock } from "../mocks/usuario.mock";
 import { Usuario, Tweet, Follow } from "@prisma/client"; // Importar os tipos corretos
 
-describe("FindOneById user", () => {
+describe("Usuario findOneById", () => {
   const createSut = () => new UsuarioService();
 
   it("Deve retornar um usuário quando um ID válido é fornecido", async () => {

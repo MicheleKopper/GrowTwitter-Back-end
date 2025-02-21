@@ -110,4 +110,19 @@ describe("GET /replies/:id_reply", () => {
     expect(response.body.ok).toBe(false);
     expect(response.body.message).toBe("Erro do servidor: Erro inesperado");
   });
+
+  it("Deve retornar 500 se ocorrer um erro interno sem message", async () => {
+    const token = makeToken();
+    const idReply = "reply1";
+
+    jest.spyOn(ReplyService.prototype, "findOneById").mockRejectedValue({});
+
+    const response = await supertest(server)
+      .get(`${endpoint}/${idReply}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(500);
+    expect(response.body.ok).toBe(false);
+    expect(response.body.message).toBe("Erro do servidor: undefined");
+  });
 });

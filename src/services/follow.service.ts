@@ -78,14 +78,12 @@ export class FollowService {
       },
     });
 
-
     return {
       ok: true,
       code: 200,
       message: "Seguidores listados com sucesso!",
       data: followers.map((f) => f.follower), // Aqui f.follower será acessado corretamente
     };
-
   }
 
   public async delete(id_follow: string): Promise<ResponseApi> {

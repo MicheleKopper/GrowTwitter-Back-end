@@ -9,18 +9,18 @@ export class CreateFollowMiddleware {
     const { followerId, followingId } = req.body;
 
     if (!followerId || !followingId) {
-      res.status(400).json({
+       res.status(400).json({
         ok: false,
-        code: 400, // Adicionar isso para manter o padrão
+        code: 400,
         message: "Preencha os IDs do seguidor e seguido!",
       });
       return;
     }
 
     if (followerId === followingId) {
-      res.status(400).json({
+       res.status(400).json({
         ok: false,
-        code: 400, // Adicionar isso também
+        code: 400,
         message: "Você não pode seguir a si mesmo!",
       });
       return;
@@ -29,3 +29,4 @@ export class CreateFollowMiddleware {
     next();
   }
 }
+

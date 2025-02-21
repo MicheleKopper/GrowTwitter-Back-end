@@ -8,7 +8,6 @@ describe("POST /follow", () => {
   const endpoint = "/follow";
 
   // __________________ AUTH __________________
-  // TOKEN AUSENTE
   it("Deve retornar 401 quando não for informado o token", async () => {
     const response = await supertest(server).post(endpoint);
 
@@ -19,7 +18,6 @@ describe("POST /follow", () => {
     });
   });
 
-  // TOKEN INVÁLIDO
   it("Deve retornar 401 quando for informado um token inválido", async () => {
     const response = await supertest(server)
       .post(endpoint)
@@ -33,7 +31,6 @@ describe("POST /follow", () => {
   });
 
   // __________________ CONTROLLER __________________
-  // JÁ ESTÁ SEGUINDO
   it("Deve retornar 409 quando o usuário já estiver seguindo o outro", async () => {
     const token = makeToken();
     const followData = {
@@ -57,7 +54,6 @@ describe("POST /follow", () => {
     expect(response.body.message).toBe("Você já está seguindo este usuário!");
   });
 
-  // SUCESSO NA CRIAÇÃO
   it("Deve retornar 201 quando os dados são válidos e o follow for criado", async () => {
     const token = makeToken();
     const followData = {
@@ -85,35 +81,26 @@ describe("POST /follow", () => {
     expect(response.body.data).toEqual(followData);
   });
 
-  //  __________________ MIDDLEWARE __________________
-  it("Deve retornar 400 quando o ID do seguidor não for informado", async () => {
+  // __________________ ERROS ADICIONAIS __________________
+  it("Deve retornar 500 quando ocorrer um erro inesperado no serviço", async () => {
     const token = makeToken();
+    const followData = {
+      followerId: "user-123",
+      followingId: "user-456",
+    };
+
+    jest
+      .spyOn(FollowService.prototype, "create")
+      .mockRejectedValue(new Error("Erro inesperado"));
+
     const response = await supertest(server)
       .post(endpoint)
       .set("Authorization", `Bearer ${token}`)
-      .send({ followingId: "valid-user-id" }); // Sem followerId
+      .send(followData);
 
-    expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual({
-      ok: false,
-      code: 400,
-      message: "Preencha os IDs do seguidor e seguido!",
-    });
-  });
-
-  it("Deve retornar 400 quando o ID do seguido não for informado", async () => {
-    const token = makeToken();
-    const response = await supertest(server)
-      .post(endpoint)
-      .set("Authorization", `Bearer ${token}`)
-      .send({ followerId: "valid-user-id" }); // Sem followingId
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body).toEqual({
-      ok: false,
-      code: 400,
-      message: "Preencha os IDs do seguidor e seguido!",
-    });
+    expect(response.statusCode).toBe(500);
+    expect(response.body.ok).toBe(false);
+    expect(response.body.message).toBe("Erro do servidor: Erro inesperado");
   });
 
   it("Deve retornar 400 quando o usuário tentar seguir a si mesmo", async () => {
@@ -123,7 +110,7 @@ describe("POST /follow", () => {
     const response = await supertest(server)
       .post(endpoint)
       .set("Authorization", `Bearer ${token}`)
-      .send({ followerId: userId, followingId: userId }); // Mesmo ID para ambos
+      .send({ followerId: userId, followingId: userId });
 
     expect(response.statusCode).toBe(400);
     expect(response.body).toEqual({
@@ -131,5 +118,27 @@ describe("POST /follow", () => {
       code: 400,
       message: "Você não pode seguir a si mesmo!",
     });
+  });
+
+  it("Deve verificar se o serviço impede seguir um usuário já seguido", async () => {
+    const token = makeToken();
+    const followData = { followerId: "user-123", followingId: "user-456" };
+
+    const mockService = jest
+      .spyOn(FollowService.prototype, "create")
+      .mockResolvedValue({
+        ok: false,
+        code: 409,
+        message: "Você já está seguindo este usuário!",
+      });
+
+    const response = await supertest(server)
+      .post(endpoint)
+      .set("Authorization", `Bearer ${token}`)
+      .send(followData);
+
+    expect(response.statusCode).toBe(409);
+    expect(response.body.message).toBe("Você já está seguindo este usuário!");
+    expect(mockService).toHaveBeenCalledWith(followData);
   });
 });

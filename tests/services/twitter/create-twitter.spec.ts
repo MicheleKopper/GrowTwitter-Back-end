@@ -2,7 +2,7 @@ import { TwitterService } from "../../../src/services/twitter.service";
 import { prismaMock } from "../../config/prisma.mock";
 import { TweetType } from "@prisma/client";
 
-describe("Create twitter", () => {
+describe("Twitter create", () => {
   const createSut = () => new TwitterService();
 
   it("Deve criar um tweet com sucesso", async () => {
@@ -12,7 +12,7 @@ describe("Create twitter", () => {
       conteudo: "Novo tweet de teste",
       type: TweetType.T,
       idUsuario: "user-123",
-      idTweetPai: null, 
+      idTweetPai: null,
     };
 
     // Simula a criação do tweet no banco

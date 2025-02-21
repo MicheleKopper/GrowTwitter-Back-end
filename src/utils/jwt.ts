@@ -3,8 +3,6 @@ import jwt from "jsonwebtoken";
 import { AuthUser } from "../types/user.type";
 
 export class JWT {
-
-  
   // Gerar o token
   public generateToken(data: AuthUser): string {
     if (!process.env.JWT_SECRET) {

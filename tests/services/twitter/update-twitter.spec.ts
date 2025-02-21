@@ -3,7 +3,7 @@ import { prismaMock } from "../../config/prisma.mock"; // Certifique-se de impor
 import { TweetType } from "@prisma/client";
 
 // Criação do SUT (System Under Test)
-describe("Update twitter", () => {
+describe("Twitter update", () => {
   const createSut = () => new TwitterService();
 
   it("Deve atualizar um tweet com sucesso", async () => {

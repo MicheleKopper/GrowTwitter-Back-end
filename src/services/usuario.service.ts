@@ -5,157 +5,182 @@ import { Bcrypt } from "../utils/bcrypt";
 
 export class UsuarioService {
   public async create(createUsuario: CreateUsuarioDto): Promise<ResponseApi> {
-    const { nome, username, email, senha } = createUsuario;
+    try {
+      const { nome, username, email, senha } = createUsuario;
 
-    // VALIDAÇÃO DE COLUNA ÚNICA
-    const usuario = await prisma.usuario.findUnique({
-      where: { email: email },
-    });
+      const usuario = await prisma.usuario.findUnique({ where: { email } });
 
-    if (usuario && usuario.email === email) {
+      if (usuario) {
+        return {
+          ok: false,
+          code: 409,
+          message: "Este email já está em uso!",
+        };
+      }
+
+      const bcrypt = new Bcrypt();
+      const senhaHash = await bcrypt.generateHash(senha);
+
+      const usuarioCriado = await prisma.usuario.create({
+        data: { nome, username, email, senha: senhaHash },
+      });
+
+      return {
+        ok: true,
+        code: 201,
+        message: "Usuário cadastrado com sucesso!",
+        data: usuarioCriado,
+      };
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Erro desconhecido.";
       return {
         ok: false,
-        code: 409,
-        message: "Este email já está em uso!",
+        code: 500,
+        message: `Erro ao criar usuário: ${errorMessage}`,
       };
     }
-
-    // CRIAÇÃO DO HASH
-    const bcrypt = new Bcrypt();
-    const senhaHash = await bcrypt.generateHash(senha);
-
-    // CRIAÇÃO NO BANCO DE DADOS
-    const usuarioCriado = await prisma.usuario.create({
-      data: {
-        nome: nome,
-        username: username,
-        email: email,
-        senha: senhaHash,
-      },
-    });
-
-    return {
-      ok: true,
-      code: 201,
-      message: "Usuário cadastrado com sucesso!",
-      data: usuarioCriado,
-    };
   }
 
   public async findAll(query?: QueryFilterDto): Promise<ResponseApi> {
-    const usuarios = await prisma.usuario.findMany({
-      where: {
-        nome: { contains: query?.nome, mode: "insensitive" },
-        username: { contains: query?.username, mode: "insensitive" },
-        email: { contains: query?.email, mode: "insensitive" },
-      },
-    });
+    try {
+      const usuarios = await prisma.usuario.findMany({
+        where: {
+          nome: { contains: query?.nome, mode: "insensitive" },
+          username: { contains: query?.username, mode: "insensitive" },
+          email: { contains: query?.email, mode: "insensitive" },
+        },
+      });
 
-    return {
-      ok: true,
-      code: 200,
-      message: "Usuários listados com sucesso!",
-      data: usuarios,
-    };
+      return {
+        ok: true,
+        code: 200,
+        message: "Usuários listados com sucesso!",
+        data: usuarios,
+      };
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Erro desconhecido.";
+      return {
+        ok: false,
+        code: 500,
+        message: `Erro ao listar usuários: ${errorMessage}`,
+      };
+    }
   }
 
   public async findOneById(
     id_usuario: string,
     usuarioLoggedId: string
   ): Promise<ResponseApi> {
-    // Buscar usuário e incluir relações
-    const usuario = await prisma.usuario.findUnique({
-      where: { id_usuario },
-      include: {
-        Tweet: true,
-        following: true,
-      },
-    });
+    try {
+      const usuario = await prisma.usuario.findUnique({
+        where: { id_usuario },
+        include: { Tweet: true, following: true },
+      });
 
-    // Validar se existir
-    if (!usuario) {
+      if (!usuario) {
+        return {
+          ok: false,
+          code: 404,
+          message: "Usuário não encontrado!",
+        };
+      }
+
+      const follow = usuario.following.find(
+        (f) => f.followerId === usuarioLoggedId && f.followingId === id_usuario
+      );
+
+      return {
+        ok: true,
+        code: 200,
+        message: "Usuário encontrado!",
+        data: { ...usuario, isFollowing: !!follow },
+      };
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Erro desconhecido.";
       return {
         ok: false,
-        code: 404,
-        message: "Usuário não encontrado!",
+        code: 500,
+        message: `Erro ao buscar usuário: ${errorMessage}`,
       };
     }
-
-    // Verificar se o usuário logado segue o usuário pesquisado
-    const follow = usuario.following.find(
-      (f) => f.followerId === usuarioLoggedId && f.followingId === id_usuario
-    );
-
-    // Retornar o dado
-    return {
-      ok: true,
-      code: 200,
-      message: "Usuário encontrado!",
-      data: { ...usuario, isFollowing: !!follow }, // Retorna true ou false
-    };
   }
 
   public async update(
     id_usuario: string,
     updateUsuario: UpdateUsuarioDto
   ): Promise<ResponseApi> {
-    // 1 - Verificar se o id existe
-    const usuario = await prisma.usuario.findUnique({
-      where: { id_usuario },
-    });
+    try {
+      const usuario = await prisma.usuario.findUnique({
+        where: { id_usuario },
+      });
 
-    if (!usuario) {
+      if (!usuario) {
+        return {
+          ok: false,
+          code: 404,
+          message: "Usuário não encontrado!",
+        };
+      }
+
+      const usuarioUpdate = await prisma.usuario.update({
+        where: { id_usuario },
+        data: { ...updateUsuario },
+      });
+
+      return {
+        ok: true,
+        code: 200,
+        message: "Usuário atualizado com sucesso!",
+        data: usuarioUpdate,
+      };
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Erro desconhecido.";
       return {
         ok: false,
-        code: 404,
-        message: "Usuario não encontrado!",
+        code: 500,
+        message: `Erro ao atualizar usuário: ${errorMessage}`,
       };
     }
-
-    // 2 - Atualizar (prisma)
-    const usuarioUpdate = await prisma.usuario.update({
-      where: { id_usuario },
-      data: { ...updateUsuario }, // Espalha as propriedades
-    });
-
-    // 3 - Retornar os dados
-    return {
-      ok: true,
-      code: 200,
-      message: "Usuário atualizado com sucesso!",
-      data: usuarioUpdate,
-    };
   }
 
   public async delete(id_usuario: string): Promise<ResponseApi> {
-    // 1 - Verificar se o id existe
-    const usuario = await prisma.usuario.findUnique({
-      where: { id_usuario },
-    });
+    try {
+      const usuario = await prisma.usuario.findUnique({
+        where: { id_usuario },
+      });
 
-    if (!usuario) {
+      if (!usuario) {
+        return {
+          ok: false,
+          code: 404,
+          message: "Usuário não encontrado!",
+        };
+      }
+
+      await prisma.tweet.deleteMany({ where: { idUsuario: id_usuario } });
+
+      const usuarioDelete = await prisma.usuario.delete({
+        where: { id_usuario },
+      });
+
+      return {
+        ok: true,
+        code: 200,
+        message: "Usuário deletado com sucesso!",
+        data: usuarioDelete,
+      };
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Erro desconhecido.";
       return {
         ok: false,
-        code: 404,
-        message: "Usuario não encontrado!",
+        code: 500,
+        message: `Erro ao deletar usuário: ${errorMessage}`,
       };
     }
-
-    await prisma.tweet.deleteMany({
-      where: { idUsuario: id_usuario },
-    });
-
-    // 2 - Deletar o usuário
-    const usuarioDelete = await prisma.usuario.delete({
-      where: { id_usuario },
-    });
-
-    // 3 - Retornar os dados
-    return {
-      ok: true,
-      code: 200,
-      message: "Usuário deletado com sucesso!",
-      data: usuarioDelete,
-    };
   }
 }

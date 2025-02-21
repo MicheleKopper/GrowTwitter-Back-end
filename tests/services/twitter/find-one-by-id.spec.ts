@@ -4,7 +4,7 @@ import { TwitterMock } from "../mocks/twitter.mock";
 import { UsuarioMock } from "../mocks/usuario.mock";
 import { Tweet, Usuario } from "@prisma/client";
 
-describe("FindOneById tweets", () => {
+describe("Twitter findOneById", () => {
   const createSut = () => new TwitterService();
 
   it("Deve retornar um tweet com o usuário quando um ID válido é fornecido", async () => {

@@ -2,8 +2,7 @@ import { UsuarioService } from "../../../src/services/usuario.service";
 import { prismaMock } from "../../config/prisma.mock";
 import { UsuarioMock } from "../mocks/usuario.mock";
 
-
-describe("Delete user", () => {
+describe("Usuario delete", () => {
   const createSut = () => new UsuarioService();
 
   it("Deve deletar um usuário com sucesso", async () => {
@@ -30,6 +29,6 @@ describe("Delete user", () => {
 
     expect(response.ok).toBeFalsy();
     expect(response.code).toBe(404);
-    expect(response.message).toBe("Usuario não encontrado!");
+    expect(response.message).toBe("Usuário não encontrado!");
   });
 });

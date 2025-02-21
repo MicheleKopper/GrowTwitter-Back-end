@@ -1,10 +1,8 @@
-
-
 import { TwitterService } from "../../../src/services/twitter.service";
 import { prismaMock } from "../../config/prisma.mock";
 import { TweetType } from "@prisma/client";
 
-describe("Delete twitter", () => {
+describe("Twitter delete", () => {
   const createSut = () => new TwitterService();
 
   it("Deve deletar um tweet com sucesso", async () => {

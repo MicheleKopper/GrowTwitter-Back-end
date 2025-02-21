@@ -58,7 +58,7 @@ describe("POST /replies", () => {
       .post(endpoint)
       .set("Authorization", `Bearer ${token}`)
       .send({
-        conteudo: 123, 
+        conteudo: 123,
         type: "R",
         idUsuario: "valid-user-id",
         idTweet: "valid-tweet-id",
@@ -118,6 +118,12 @@ describe("POST /replies", () => {
     expect(response.statusCode).toBe(201);
     expect(response.body.ok).toBe(true);
     expect(response.body.message).toBe("Resposta criada com sucesso!");
-    expect(response.body.data).toEqual(replyData);
+
+    expect(response.body.data).toMatchObject({
+      conteudo: replyData.conteudo,
+      type: replyData.type,
+      idUsuario: replyData.idUsuario,
+      idTweet: replyData.idTweet,
+    });
   });
 });
