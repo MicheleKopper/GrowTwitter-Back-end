@@ -1,0 +1,171 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "GrowTwitter",
+    "description": "API para gerenciamento de usuários e tweets.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Michele Kopper",
+      "email": "michelekopper@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor local de desenvolvimento"
+    },
+    {
+      "url": "https://render.com",
+      "description": "API de produção"
+    }
+  ],
+  "externalDocs": {
+    "description": "Confira o código completo no GitHub",
+    "url": "https://github.com/MicheleKopper/SocialMedia-API"
+  },
+  "tags": [
+    {
+      "name": "Usuários",
+      "description": "Gerenciamento de usuários, incluindo cadastro, autenticação e consulta."
+    },
+    {
+      "name": "Tweets",
+      "description": "Gerenciamento de tweets, incluindo criação, consulta e interações."
+    }
+  ],
+  "paths": {
+    "/usuarios": {
+      "post": {
+        "tags": [
+          "Usuários"
+        ],
+        "summary": "Criação de um novo usuário",
+        "description": "Registra um novo usuário no sistema.",
+        "requestBody": {
+          "description": "Dados necessários para criar um usuário",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string",
+                    "example": "Michele Kopper"
+                  },
+                  "username": {
+                    "type": "string",
+                    "example": "@michele"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "michele@gmail.com"
+                  },
+                  "senha": {
+                    "type": "string",
+                    "format": "password",
+                    "example": "senha123"
+                  }
+                },
+                "required": [
+                  "nome",
+                  "username",
+                  "email",
+                  "senha"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso"
+          },
+          "400": {
+            "description": "Erro de validação nos dados enviados"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/tweets": {
+      "post": {
+        "tags": [
+          "Tweets"
+        ],
+        "summary": "Criar um novo tweet",
+        "description": "Endpoint para criar um tweet ou uma resposta a um tweet existente.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Dados para criação do tweet",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "conteudo": {
+                    "type": "string",
+                    "example": "Este é um novo tweet!"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "T",
+                      "R"
+                    ],
+                    "example": "T"
+                  },
+                  "idUsuario": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                  },
+                  "idTweetPai": {
+                    "type": "string",
+                    "nullable": true,
+                    "example": "789e4567-e89b-12d3-a456-426614174999"
+                  }
+                },
+                "required": [
+                  "conteudo",
+                  "type",
+                  "idUsuario"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Tweet criado com sucesso"
+          },
+          "400": {
+            "description": "Erro de validação dos dados enviados"
+          },
+          "401": {
+            "description": "Usuário não autenticado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { TweetType } from "@prisma/client";
+
 
 export class CreateTwitterMiddleware {
   public static validateRequired(
